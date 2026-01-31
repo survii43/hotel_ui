@@ -25,7 +25,6 @@ export interface UseResolveCodeResult {
   /** True when initialCode was set and all resolve attempts failed (show manual form). */
   urlResolveFailed: boolean;
 }
-//
 /**
  * Single place for "resolve table/outlet code → menu" flow.
  * Uses localStorage cache first to reduce server load; then API with retry for URL code.
