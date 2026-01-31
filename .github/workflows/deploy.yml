@@ -1,0 +1,237 @@
+name: Build and Deploy to Production
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+env:
+  SERVER_HOST: 125.99.241.72
+  SERVER_USER: homelab
+  PROJECT_DIR: /home/homelab/hotel_ui
+  CONTAINER_NAME: hotel-ui
+
+jobs:
+  build:
+    name: Build Application
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: npm run lint
+        continue-on-error: true
+
+      - name: Build application
+        run: npm run build
+        env:
+          VITE_API_URL: http://125.99.241.72:3000
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 1
+
+  deploy:
+    name: Deploy to Production Server
+    runs-on: ubuntu-latest
+    needs: build
+    if: success()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Check SSH key availability
+        id: check_ssh
+        run: |
+          if [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ]; then
+            echo "has_ssh_key=false" >> $GITHUB_OUTPUT
+            echo "::error::SSH_PRIVATE_KEY secret is not configured."
+            echo ""
+            echo "::warning::━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo "::warning::SETUP REQUIRED: SSH Private Key Not Configured"
+            echo "::warning::━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo ""
+            echo "To enable automatic deployment:"
+            echo ""
+            echo "1. Generate SSH key: ssh-keygen -t ed25519 -f ~/.ssh/github_actions_deploy"
+            echo "2. Copy to server: ssh-copy-id -i ~/.ssh/github_actions_deploy.pub homelab@125.99.241.72"
+            echo "3. Add SSH_PRIVATE_KEY to GitHub Secrets (Settings → Secrets and variables → Actions)"
+            echo "   Value: entire private key including BEGIN/END lines"
+            echo ""
+            echo "::warning::━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          else
+            echo "has_ssh_key=true" >> $GITHUB_OUTPUT
+            echo "✅ SSH_PRIVATE_KEY secret is configured"
+          fi
+
+      - name: Setup SSH Key
+        if: steps.check_ssh.outputs.has_ssh_key == 'true'
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          if [ ! -s ~/.ssh/deploy_key ]; then
+            echo "::error::SSH key file is empty."
+            exit 1
+          fi
+          if ! grep -q "BEGIN.*PRIVATE KEY" ~/.ssh/deploy_key; then
+            echo "::error::Invalid SSH Key Format in GitHub Secrets"
+            exit 1
+          fi
+          if ! ssh-keygen -l -f ~/.ssh/deploy_key > /dev/null 2>&1; then
+            echo "::error::SSH key validation failed."
+            exit 1
+          fi
+          echo "✅ SSH key validated successfully"
+
+      - name: Add server to known hosts
+        if: steps.check_ssh.outputs.has_ssh_key == 'true'
+        run: |
+          mkdir -p ~/.ssh
+          touch ~/.ssh/known_hosts
+          ssh-keyscan -H -p 22 ${{ env.SERVER_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Test SSH connection
+        if: steps.check_ssh.outputs.has_ssh_key == 'true'
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} "echo 'SSH connection successful'"
+
+      - name: Create project directory
+        if: steps.check_ssh.outputs.has_ssh_key == 'true'
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} "mkdir -p ${{ env.PROJECT_DIR }}"
+
+      - name: Copy files to server
+        if: steps.check_ssh.outputs.has_ssh_key == 'true'
+        run: |
+          rsync -avz --delete \
+            --exclude 'node_modules' \
+            --exclude '.git' \
+            --exclude '.env' \
+            --exclude '*.log' \
+            --exclude '.cursor' \
+            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+            ./ ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}:${{ env.PROJECT_DIR }}/
+
+      - name: Deploy application
+        if: steps.check_ssh.outputs.has_ssh_key == 'true'
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} << 'REMOTE_EOF'
+            set -e
+            cd /home/homelab/hotel_ui
+
+            if [ ! -f .env ]; then
+              cp .env.example .env
+              sed -i 's|VITE_API_URL=.*|VITE_API_URL=http://125.99.241.72:3000|' .env
+            fi
+
+            if docker ps | grep -q hotel-ui; then
+              echo "📦 Backing up current deployment..."
+              docker exec hotel-ui tar -czf /tmp/backup-$(date +%Y%m%d-%H%M%S).tar.gz /usr/share/nginx/html 2>/dev/null || true
+            fi
+
+            echo "🛑 Stopping old container..."
+            docker-compose -f docker-compose.yml down 2>/dev/null || true
+
+            echo "🔨 Building and starting new container..."
+            docker-compose -f docker-compose.yml up -d --build
+
+            echo "⏳ Waiting for container to start..."
+            sleep 15
+
+            if docker ps | grep -q hotel-ui; then
+              echo "✅ Container is running!"
+              docker-compose -f docker-compose.yml ps
+            else
+              echo "❌ Container failed to start!"
+              docker-compose -f docker-compose.yml logs --tail=50
+              exit 1
+            fi
+          REMOTE_EOF
+
+      - name: Verify deployment
+        if: steps.check_ssh.outputs.has_ssh_key == 'true'
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} << 'REMOTE_EOF'
+            echo "🏥 Running health check..."
+            max_attempts=10
+            attempt=0
+
+            while [ $attempt -lt $max_attempts ]; do
+              if curl -f http://localhost:5175/health > /dev/null 2>&1; then
+                echo "✅ Health check passed!"
+                curl http://localhost:5175/health
+                exit 0
+              fi
+              attempt=$((attempt + 1))
+              echo "Attempt $attempt/$max_attempts failed, retrying..."
+              sleep 3
+            done
+
+            echo "⚠️ Health check failed after $max_attempts attempts"
+            docker ps | grep hotel-ui || echo "Container not found"
+            docker logs hotel-ui --tail=20
+            exit 1
+          REMOTE_EOF
+
+      - name: Cleanup SSH key
+        if: always() && steps.check_ssh.outputs.has_ssh_key == 'true'
+        run: |
+          rm -f ~/.ssh/deploy_key
+          echo "✅ SSH key cleaned up"
+
+      - name: Skip deployment notice
+        if: steps.check_ssh.outputs.has_ssh_key == 'false'
+        run: |
+          echo "::notice::Deployment skipped - SSH_PRIVATE_KEY is not configured."
+
+      - name: Deployment summary
+        if: always()
+        run: |
+          echo "## 🚀 Build and Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Build Status" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "✅ **Build:** Successful" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Build:** Failed" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Deployment Status" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.check_ssh.outputs.has_ssh_key }}" == "true" ]; then
+            echo "✅ **Status:** Deployment completed" >> $GITHUB_STEP_SUMMARY
+            echo "- **Server:** ${{ env.SERVER_HOST }}" >> $GITHUB_STEP_SUMMARY
+            echo "- **Project:** ${{ env.PROJECT_DIR }}" >> $GITHUB_STEP_SUMMARY
+            echo "- **Container:** ${{ env.CONTAINER_NAME }}" >> $GITHUB_STEP_SUMMARY
+            echo "- **URL:** http://${{ env.SERVER_HOST }}:5175/" >> $GITHUB_STEP_SUMMARY
+            echo "- **Health:** http://${{ env.SERVER_HOST }}:5175/health" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "⚠️ **Status:** Deployment skipped - SSH key not configured" >> $GITHUB_STEP_SUMMARY
+            echo "Add \`SSH_PRIVATE_KEY\` to GitHub Secrets to enable deployment." >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Triggered by:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
