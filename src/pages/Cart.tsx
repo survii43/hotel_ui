@@ -137,14 +137,15 @@ export default function Cart() {
   }
 
   if (!outletId) {
+    const noSessionMsg = cart.length > 0 ? t('cart.noSessionWithItems') : t('cart.noSession');
     return (
       <>
         <AppBar />
         <main className="main-content">
           <div className="container">
-            <p className="cart-empty-msg">{t('menu.noMenu')}</p>
-            <button type="button" className="btn btn-primary" onClick={() => navigate('/')}>
-              {t('scan.title')}
+            <p className="cart-empty-msg">{noSessionMsg}</p>
+            <button type="button" className="btn btn-primary" onClick={() => navigate('/order')}>
+              {t('cart.scanTableCode')}
             </button>
           </div>
         </main>

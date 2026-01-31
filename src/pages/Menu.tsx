@@ -15,7 +15,7 @@ import './Menu.css';
 export default function Menu() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { state, dispatch } = useApp();
+  const { state, dispatch, addNotification } = useApp();
   const [modalItem, setModalItem] = useState<MenuItemSummary | null>(null);
   const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
@@ -108,6 +108,7 @@ export default function Menu() {
 
   function addToCart(cartItem: CartItem) {
     dispatch({ type: 'ADD_TO_CART', payload: cartItem });
+    addNotification(t('cart.addedToCart'));
   }
 
   function openAddToCart(item: MenuItemSummary) {
@@ -150,9 +151,21 @@ export default function Menu() {
         <main className="main-content">
           <div className="container">
             <p className="menu-error">{error ?? t('common.error')}</p>
-            <button type="button" className="btn btn-secondary" onClick={() => navigate('/')}>
-              {t('common.retry')}
-            </button>
+            <div className="menu-error-actions">
+              {outletId && !hasScanMenu && (
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => activeMenuQuery.refetch()}
+                  disabled={activeMenuQuery.isFetching}
+                >
+                  {activeMenuQuery.isFetching ? t('common.loading') : t('common.retry')}
+                </button>
+              )}
+              <button type="button" className="btn btn-secondary" onClick={() => navigate('/order')}>
+                {t('cart.scanTableCode')}
+              </button>
+            </div>
           </div>
         </main>
         <BottomNav />
