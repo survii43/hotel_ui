@@ -75,4 +75,10 @@ export async function getOutletEvents(outletId: string): Promise<{
   return data;
 }
 
+/** Returns the redirect URL for GET /api/customer/web/:barcode (302). Optional – use if you need server-driven web app URL. */
+export function getWebAppRedirectUrl(barcode: string): string {
+  const encoded = encodeURIComponent(barcode);
+  return `${API_BASE}/api/customer/web/${encoded}`;
+}
+
 export { API_BASE };

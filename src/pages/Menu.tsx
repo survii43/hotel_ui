@@ -8,6 +8,7 @@ import type { MenuCategory, MenuItemSummary } from '../api/types';
 import type { CartItem } from '../api/types';
 import AppBar from '../components/AppBar';
 import BottomNav from '../components/BottomNav';
+import AddToCartModal from '../components/AddToCartModal';
 import './Menu.css';
 
 export default function Menu() {
@@ -17,8 +18,10 @@ export default function Menu() {
   const [menu, setMenu] = useState<{ categories?: MenuCategory[]; items?: MenuItemSummary[] } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [modalItem, setModalItem] = useState<MenuItemSummary | null>(null);
 
   const outletId = state.outlet?.id;
+  const currency = state.qrContext?.qrContext?.currency ?? 'INR';
 
   useEffect(() => {
     if (!outletId) {
@@ -43,15 +46,12 @@ export default function Menu() {
     return () => { cancelled = true; };
   }, [outletId, t]);
 
-  function addToCart(item: MenuItemSummary, quantity = 1) {
-    const price = item.price ?? 0;
-    const cartItem: CartItem = {
-      menu_item_id: item.id,
-      menu_item_name: item.name,
-      quantity,
-      unit_price: price,
-    };
+  function addToCart(cartItem: CartItem) {
     dispatch({ type: 'ADD_TO_CART', payload: cartItem });
+  }
+
+  function openAddToCart(item: MenuItemSummary) {
+    setModalItem(item);
   }
 
   if (!outletId) {
@@ -112,6 +112,12 @@ export default function Menu() {
       <AppBar />
       <main className="main-content">
         <div className="container menu-page">
+          <div className="menu-context card">
+            <span className="menu-context-outlet">{t('menu.orderingFrom')}: <strong>{state.outlet?.name}</strong></span>
+            {state.tableNumber && (
+              <span className="menu-context-table">{t('menu.table')}: <strong>{state.tableNumber}</strong></span>
+            )}
+          </div>
           {hasCategories && (
             <nav className="menu-categories" aria-label={t('menu.categories')}>
               {categories.map((cat) => (
@@ -138,13 +144,13 @@ export default function Menu() {
                             <p className="menu-item-desc">{item.description}</p>
                           )}
                           <p className="menu-item-price">
-                            {state.qrContext?.qrContext?.currency ?? 'INR'} {item.price ?? 0}
+                            {currency} {item.price ?? 0}
                           </p>
                         </div>
                         <button
                           type="button"
                           className="btn btn-primary menu-item-add"
-                          onClick={() => addToCart(item)}
+                          onClick={() => openAddToCart(item)}
                           aria-label={t('menu.addToCart')}
                         >
                           <Plus size={18} />
@@ -162,13 +168,13 @@ export default function Menu() {
                         <p className="menu-item-desc">{item.description}</p>
                       )}
                       <p className="menu-item-price">
-                        {state.qrContext?.qrContext?.currency ?? 'INR'} {item.price ?? 0}
+                        {currency} {item.price ?? 0}
                       </p>
                     </div>
                     <button
                       type="button"
                       className="btn btn-primary menu-item-add"
-                      onClick={() => addToCart(item)}
+                      onClick={() => openAddToCart(item)}
                       aria-label={t('menu.addToCart')}
                     >
                       <Plus size={18} />
@@ -179,6 +185,14 @@ export default function Menu() {
           </div>
         </div>
       </main>
+      {modalItem && (
+        <AddToCartModal
+          item={modalItem}
+          currency={currency}
+          onAdd={addToCart}
+          onClose={() => setModalItem(null)}
+        />
+      )}
       <BottomNav />
     </>
   );

@@ -27,8 +27,16 @@ export default function Cart() {
   const tableNumber = state.tableNumber ?? undefined;
   const sessionId = state.sessionId ?? undefined;
 
-  const subtotal = cart.reduce((sum, i) => sum + i.quantity * i.unit_price, 0);
   const currency = state.qrContext?.qrContext?.currency ?? 'INR';
+
+  function getLineTotal(i: typeof cart[0]) {
+    const base = i.unit_price * i.quantity;
+    const addonTotal = i.addons?.reduce((s, a) => s + a.price * a.quantity, 0) ?? 0;
+    return base + addonTotal;
+  }
+
+  const subtotal = cart.reduce((sum, i) => sum + getLineTotal(i), 0);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   function updateQty(index: number, delta: number) {
     const item = cart[index];
@@ -44,8 +52,14 @@ export default function Cart() {
     dispatch({ type: 'REMOVE_FROM_CART', payload: index });
   }
 
-  async function handlePlaceOrder(e: React.FormEvent) {
+  function handlePlaceOrderClick(e: React.FormEvent) {
     e.preventDefault();
+    if (!outletId || cart.length === 0) return;
+    setError(null);
+    setShowConfirm(true);
+  }
+
+  async function handleConfirmOrder() {
     if (!outletId || cart.length === 0) return;
     setError(null);
     setPlacing(true);
@@ -95,6 +109,7 @@ export default function Cart() {
       setError(err instanceof Error ? err.message : t('common.error'));
     } finally {
       setPlacing(false);
+      setShowConfirm(false);
     }
   }
 
@@ -145,9 +160,23 @@ export default function Cart() {
                   {item.variant_name && (
                     <span className="cart-item-variant">{item.variant_name}</span>
                   )}
+                  {item.addons && item.addons.length > 0 && (
+                    <ul className="cart-item-addons">
+                      {item.addons.map((a) => (
+                        <li key={a.addon_id}>
+                          + {a.name} × {a.quantity} ({currency} {(a.price * a.quantity).toFixed(2)})
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {item.special_instructions && (
+                    <span className="cart-item-notes">{item.special_instructions}</span>
+                  )}
                   <span className="cart-item-price">
                     {currency} {item.unit_price} × {item.quantity}
+                    {item.addons && item.addons.length > 0 && ` + addons`}
                   </span>
+                  <span className="cart-item-line-total">{currency} {getLineTotal(item).toFixed(2)}</span>
                 </div>
                 <div className="cart-item-actions">
                   <div className="cart-item-qty">
@@ -181,7 +210,7 @@ export default function Cart() {
               </li>
             ))}
           </ul>
-          <form className="cart-form" onSubmit={handlePlaceOrder}>
+          <form className="cart-form" onSubmit={handlePlaceOrderClick}>
             <label className="cart-label">
               <span>{t('cart.customerName')}</span>
               <input
@@ -231,6 +260,33 @@ export default function Cart() {
               {placing ? t('common.loading') : t('cart.placeOrder')}
             </button>
           </form>
+          {showConfirm && (
+            <div className="cart-confirm-overlay" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+              <div className="cart-confirm-modal card">
+                <h2 id="confirm-title" className="cart-confirm-title">{t('cart.reviewOrder')}</h2>
+                <ul className="cart-confirm-list">
+                  {cart.map((item, index) => (
+                    <li key={`${item.menu_item_id}-${index}`}>
+                      <span>{item.menu_item_name} × {item.quantity}</span>
+                      <span>{currency} {getLineTotal(item).toFixed(2)}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="cart-confirm-total">
+                  <span>{t('cart.subtotal')}</span>
+                  <strong>{currency} {subtotal.toFixed(2)}</strong>
+                </div>
+                <div className="cart-confirm-actions">
+                  <button type="button" className="btn btn-secondary" onClick={() => setShowConfirm(false)}>
+                    {t('common.cancel')}
+                  </button>
+                  <button type="button" className="btn btn-primary" onClick={handleConfirmOrder} disabled={placing}>
+                    {placing ? t('common.loading') : t('cart.confirmOrder')}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </main>
       <BottomNav />
