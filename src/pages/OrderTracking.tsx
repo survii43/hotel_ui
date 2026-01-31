@@ -1,37 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useApp } from '../contexts/AppContext';
-import { getOrder } from '../api/client';
-import type { GetOrderResponse } from '../api/types';
+import { useOrder } from '../hooks/queries';
 import AppBar from '../components/AppBar';
 import BottomNav from '../components/BottomNav';
 import './OrderTracking.css';
+
+const REFETCH_INTERVAL_MS = 20_000; // 20s – live-ish order status
 
 export default function OrderTracking() {
   const { orderId } = useParams<{ orderId: string }>();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { state, dispatch } = useApp();
-  const [order, setOrder] = useState<GetOrderResponse['order'] | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+
+  const { data, isLoading, error, isError } = useOrder(orderId ?? null, {
+    enabled: !!orderId,
+    refetchInterval: REFETCH_INTERVAL_MS,
+  });
+
+  const order = data?.order ?? null;
 
   useEffect(() => {
-    if (!orderId) {
-      setLoading(false);
-      setError(t('common.error'));
-      return;
+    if (order) {
+      dispatch({ type: 'SET_ORDER', payload: order });
+      dispatch({ type: 'SET_CURRENT_ORDER_ID', payload: order.id });
     }
-    getOrder(orderId)
-      .then((res) => {
-        setOrder(res.order);
-        dispatch({ type: 'SET_ORDER', payload: res.order });
-        dispatch({ type: 'SET_CURRENT_ORDER_ID', payload: res.order.id });
-      })
-      .catch((err) => setError(err instanceof Error ? err.message : t('common.error')))
-      .finally(() => setLoading(false));
-  }, [orderId, t]);
+  }, [order, dispatch]);
 
   const statusKey: Record<string, string> = {
     pending: t('order.status_pending'),
@@ -43,7 +39,7 @@ export default function OrderTracking() {
     cancelled: t('order.status_cancelled'),
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <>
         <AppBar title={t('order.tracking')} />
@@ -55,13 +51,15 @@ export default function OrderTracking() {
     );
   }
 
-  if (error || !order) {
+  if (isError || !order) {
     return (
       <>
         <AppBar title={t('order.tracking')} />
         <main className="main-content">
           <div className="container">
-            <p className="order-error">{error ?? t('common.error')}</p>
+            <p className="order-error">
+              {error instanceof Error ? error.message : t('common.error')}
+            </p>
             <button type="button" className="btn btn-secondary" onClick={() => navigate('/history')}>
               {t('history.title')}
             </button>

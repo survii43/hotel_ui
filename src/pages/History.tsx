@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useApp } from '../contexts/AppContext';
+import { useOrder } from '../hooks/queries';
 import { getOrder } from '../api/client';
 import AppBar from '../components/AppBar';
 import BottomNav from '../components/BottomNav';
@@ -12,37 +13,37 @@ export default function History() {
   const navigate = useNavigate();
   const { state, dispatch } = useApp();
   const [orderIdInput, setOrderIdInput] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [trackLoading, setTrackLoading] = useState(false);
+  const [trackError, setTrackError] = useState<string | null>(null);
+
+  const currentOrderId = state.currentOrderId;
   const currentOrder = state.currentOrder;
 
+  const { data: currentOrderData } = useOrder(currentOrderId ?? null, {
+    enabled: !!currentOrderId && !currentOrder,
+  });
+
   useEffect(() => {
-    if (state.currentOrderId && !currentOrder) {
-      setLoading(true);
-      getOrder(state.currentOrderId)
-        .then((res) => {
-          dispatch({ type: 'SET_ORDER', payload: res.order });
-        })
-        .catch(() => {})
-        .finally(() => setLoading(false));
+    if (currentOrderData?.order) {
+      dispatch({ type: 'SET_ORDER', payload: currentOrderData.order });
     }
-  }, [state.currentOrderId]);
+  }, [currentOrderData?.order, dispatch]);
 
   async function handleTrackOrder(e: React.FormEvent) {
     e.preventDefault();
     const id = orderIdInput.trim();
     if (!id) return;
-    setError(null);
-    setLoading(true);
+    setTrackError(null);
+    setTrackLoading(true);
     try {
       const res = await getOrder(id);
       dispatch({ type: 'SET_ORDER', payload: res.order });
       dispatch({ type: 'SET_CURRENT_ORDER_ID', payload: res.order.id });
       navigate(`/order/${res.order.id}`);
     } catch (err) {
-      setError(err instanceof Error ? err.message : t('common.error'));
+      setTrackError(err instanceof Error ? err.message : t('common.error'));
     } finally {
-      setLoading(false);
+      setTrackLoading(false);
     }
   }
 
@@ -70,11 +71,11 @@ export default function History() {
                 placeholder={t('history.orderNumber', { number: '...' })}
                 value={orderIdInput}
                 onChange={(e) => setOrderIdInput(e.target.value)}
-                disabled={loading}
+                disabled={trackLoading}
               />
-              {error && <p className="history-error">{error}</p>}
-              <button type="submit" className="btn btn-primary" disabled={loading}>
-                {loading ? t('common.loading') : t('history.viewOrder')}
+              {trackError && <p className="history-error">{trackError}</p>}
+              <button type="submit" className="btn btn-primary" disabled={trackLoading}>
+                {trackLoading ? t('common.loading') : t('history.viewOrder')}
               </button>
             </form>
           </section>

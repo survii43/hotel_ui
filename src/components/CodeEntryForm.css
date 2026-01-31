@@ -1,4 +1,5 @@
-.scan-page {
+/* Wrapper for pages that host CodeEntryForm (Scan, OrderEntry) */
+.code-entry-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,12 +8,20 @@
   padding: 2rem 1rem;
 }
 
-.scan-hero {
+.code-entry-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.code-entry-hero {
   text-align: center;
   margin-bottom: 2rem;
 }
 
-.scan-icon-wrap {
+.code-entry-icon-wrap {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -24,35 +33,35 @@
   border-radius: 50%;
 }
 
-.scan-hero h2 {
+.code-entry-title {
   margin: 0 0 0.5rem;
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--text-primary);
 }
 
-.scan-sub {
+.code-entry-sub {
   margin: 0;
   font-size: 0.95rem;
   color: var(--text-muted);
 }
 
-.scan-form {
+.code-entry-form {
   width: 100%;
   max-width: 400px;
 }
 
-.scan-input {
+.code-entry-input {
   margin-bottom: 0.75rem;
 }
 
-.scan-error {
+.code-entry-error {
   margin: 0 0 0.75rem;
   font-size: 0.875rem;
   color: var(--error);
 }
 
-.scan-btn {
+.code-entry-btn {
   width: 100%;
   padding: 0.875rem 1.5rem;
 }

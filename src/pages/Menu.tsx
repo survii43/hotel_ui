@@ -1,9 +1,9 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Plus, ChevronDown } from 'lucide-react';
 import { useApp } from '../contexts/AppContext';
-import { getActiveMenu } from '../api/client';
+import { useActiveMenu } from '../hooks/queries';
 import { normalizeScanMenu } from '../utils/normalizeScanMenu';
 import type { MenuCategory, MenuItemSummary } from '../api/types';
 import type { CartItem } from '../api/types';
@@ -16,9 +16,6 @@ export default function Menu() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { state, dispatch } = useApp();
-  const [menu, setMenu] = useState<{ categories?: MenuCategory[]; items?: MenuItemSummary[] } | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [modalItem, setModalItem] = useState<MenuItemSummary | null>(null);
   const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
@@ -27,50 +24,37 @@ export default function Menu() {
   const outletId = state.outlet?.id ?? state.qrContext?.qrContext?.outletId ?? null;
   const currency = state.qrContext?.qrContext?.currency ?? 'INR';
 
-  // Derive from menu so hooks below can run unconditionally
-  const categories = menu?.categories ?? [];
-  const items = menu?.items ?? [];
-  const hasCategories = categories.length > 0;
-  const list = hasCategories ? categories.flatMap((c) => (c.items ?? [])) : items;
-
-  // Prefer menu from scan response when present – do not call active-menu API (avoids duplicate/failing request)
+  // Prefer menu from scan response when present – no API call (avoids duplicate/failing request)
   const hasScanMenu =
     state.qrContext?.menu &&
     Array.isArray((state.qrContext.menu as { categories?: unknown[] }).categories) &&
     (state.qrContext.menu as { categories: unknown[] }).categories.length > 0;
 
-  useEffect(() => {
-    if (!outletId) {
-      setLoading(false);
-      setError(t('menu.noMenu'));
-      return;
-    }
+  const activeMenuQuery = useActiveMenu(outletId, { enabled: !!outletId && !hasScanMenu });
+
+  const menu = useMemo(() => {
+    if (!outletId) return null;
     if (hasScanMenu) {
-      const normalized = normalizeScanMenu(state.qrContext!.menu as Parameters<typeof normalizeScanMenu>[0]);
-      if (normalized) {
-        setMenu(normalized);
-        setError(null);
-      }
-      setLoading(false);
-      return;
+      return normalizeScanMenu(state.qrContext!.menu as Parameters<typeof normalizeScanMenu>[0]) ?? null;
     }
-    let cancelled = false;
-    getActiveMenu(outletId)
-      .then((res) => {
-        if (!cancelled) {
-          const data = res.data as { categories?: MenuCategory[]; items?: MenuItemSummary[] };
-          setMenu(data?.categories?.length ? data : { categories: data?.categories ?? [], items: data?.items ?? [] });
-          setError(null);
-        }
-      })
-      .catch((err) => {
-        if (!cancelled) setError(err instanceof Error ? err.message : t('common.error'));
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-    return () => { cancelled = true; };
-  }, [outletId, hasScanMenu, state.qrContext?.menu, t]);
+    const data = activeMenuQuery.data?.data as { categories?: MenuCategory[]; items?: MenuItemSummary[] } | undefined;
+    if (!data) return null;
+    return data?.categories?.length
+      ? data
+      : { categories: data?.categories ?? [], items: data?.items ?? [] };
+  }, [outletId, hasScanMenu, state.qrContext?.menu, activeMenuQuery.data?.data]);
+
+  const loading = !!outletId && !hasScanMenu && activeMenuQuery.isLoading;
+  const error = !outletId
+    ? t('menu.noMenu')
+    : hasScanMenu
+      ? null
+      : (activeMenuQuery.error instanceof Error ? activeMenuQuery.error.message : activeMenuQuery.error ? t('common.error') : null);
+
+  const categories = menu?.categories ?? [];
+  const items = menu?.items ?? [];
+  const hasCategories = categories.length > 0;
+  const list = hasCategories ? categories.flatMap((c) => (c.items ?? [])) : items;
 
   // Sync active tab and expanded state when categories load (runs unconditionally; guards inside)
   useEffect(() => {

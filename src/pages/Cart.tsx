@@ -8,8 +8,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import { useApp } from '../contexts/AppContext';
-import { createOrder } from '../api/client';
-import type { CartItem as CartItemType } from '../api/types';
+import { useCreateOrderMutation } from '../hooks/queries';
+import type { CartItem as CartItemType, CreateOrderRequest } from '../api/types';
 import AppBar from '../components/AppBar';
 import BottomNav from '../components/BottomNav';
 import './Cart.css';
@@ -22,8 +22,10 @@ export default function Cart() {
   const [customerPhone, setCustomerPhone] = useState('');
   const [customerEmail, setCustomerEmail] = useState('');
   const [specialInstructions, setSpecialInstructions] = useState('');
-  const [placing, setPlacing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const createOrderMutation = useCreateOrderMutation();
+  const placing = createOrderMutation.isPending;
 
   const cart = state.cart;
   const outletId = state.outlet?.id;
@@ -75,33 +77,31 @@ export default function Cart() {
   async function handleConfirmOrder() {
     if (!outletId || cart.length === 0) return;
     setError(null);
-    setPlacing(true);
+    const orderTypeApi: 'dine_in' | 'takeaway' = orderType === 'dine_in' ? 'dine_in' : 'takeaway';
+    const sendContact = orderTypeApi !== 'dine_in';
+    const payload: CreateOrderRequest = {
+      outlet_id: outletId,
+      order_type: orderTypeApi,
+      items: cart.map((i: CartItemType) => ({
+        menu_item_id: i.menu_item_id,
+        quantity: i.quantity,
+        variant_id: i.variant_id,
+        special_instructions: i.special_instructions,
+        addons: i.addons?.map((a) => ({ addon_id: a.addon_id, quantity: a.quantity })),
+      })),
+      table_id: tableId,
+      table_number: tableNumber,
+      session_id: sessionId,
+      qr_context: tableId || tableNumber ? { tableId, tableNumber } : undefined,
+      ...(sendContact && {
+        customer_name: customerName.trim() || undefined,
+        customer_phone: customerPhone.trim() || undefined,
+        customer_email: customerEmail.trim() || undefined,
+      }),
+      special_instructions: specialInstructions.trim() || undefined,
+    };
     try {
-      const orderTypeApi = orderType === 'dine_in' ? 'dine_in' : 'takeaway';
-      // Dine-in: no personal info. Takeaway: send contact.
-      const sendContact = orderTypeApi !== 'dine_in';
-
-      const res = await createOrder({
-        outlet_id: outletId,
-        order_type: orderTypeApi,
-        items: cart.map((i: CartItemType) => ({
-          menu_item_id: i.menu_item_id,
-          quantity: i.quantity,
-          variant_id: i.variant_id,
-          special_instructions: i.special_instructions,
-          addons: i.addons?.map((a) => ({ addon_id: a.addon_id, quantity: a.quantity })),
-        })),
-        table_id: tableId,
-        table_number: tableNumber,
-        session_id: sessionId,
-        qr_context: tableId || tableNumber ? { tableId, tableNumber } : undefined,
-        ...(sendContact && {
-          customer_name: customerName.trim() || undefined,
-          customer_phone: customerPhone.trim() || undefined,
-          customer_email: customerEmail.trim() || undefined,
-        }),
-        special_instructions: specialInstructions.trim() || undefined,
-      });
+      const res = await createOrderMutation.mutateAsync(payload);
       dispatch({ type: 'CLEAR_CART' });
       dispatch({ type: 'SET_CURRENT_ORDER_ID', payload: res.order.id });
       const minimalOrder: import('../api/types').GetOrderResponse['order'] = {
@@ -122,11 +122,11 @@ export default function Cart() {
       dispatch({ type: 'SET_ORDER', payload: minimalOrder });
       addNotification(t('order.placed') + ' #' + res.order.order_number, res.order.id);
       showOrderStatusPopup(res.order.status as import('../api/types').OrderStatus);
+      setShowConfirm(false);
       navigate('/history', { replace: true });
     } catch (err) {
       setError(err instanceof Error ? err.message : t('common.error'));
     } finally {
-      setPlacing(false);
       setShowConfirm(false);
     }
   }
