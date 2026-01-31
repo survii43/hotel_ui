@@ -7,9 +7,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
-import { useApp } from '../hooks/useApp';
+import { useApp, useOutletId } from '../hooks/useApp';
 import { useCreateOrderMutation } from '../hooks/queries';
-import { isUuid } from '../utils/validation';
 import type { CartItem as CartItemType, CreateOrderRequest } from '../api/types';
 import AppBar from '../components/AppBar';
 import Footer from '../components/Footer';
@@ -29,7 +28,7 @@ export default function Cart() {
   const placing = createOrderMutation.isPending;
 
   const cart = state.cart;
-  const outletId = state.outlet?.id;
+  const outletId = useOutletId();
   const orderType = state.orderType;
   const tableId = state.tableId ?? undefined;
   const tableNumber = state.tableNumber ?? undefined;
@@ -77,11 +76,6 @@ export default function Cart() {
 
   async function handleConfirmOrder() {
     if (!outletId || cart.length === 0) return;
-    if (!isUuid(outletId)) {
-      setError(t('scan.noOutlet'));
-      setShowConfirm(false);
-      return;
-    }
     setError(null);
     const orderTypeApi: 'dine_in' | 'takeaway' = orderType === 'dine_in' ? 'dine_in' : 'takeaway';
     const sendContact = orderTypeApi !== 'dine_in';

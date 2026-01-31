@@ -15,7 +15,14 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     setOpen(true);
   }, []);
 
-  const handleClose = useCallback(() => setOpen(false), []);
+  const handleClose = useCallback(
+    (_: unknown, reason?: string) => {
+      if (reason === 'timeout' || reason === 'clickaway' || reason === 'escapeKeyDown') {
+        setOpen(false);
+      }
+    },
+    []
+  );
 
   return (
     <ToastContext.Provider value={{ showToast }}>
@@ -27,7 +34,12 @@ export function ToastProvider({ children }: { children: ReactNode }) {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         sx={{ bottom: 100 }}
       >
-        <Alert onClose={handleClose} severity="success" variant="filled" sx={{ width: '100%' }}>
+        <Alert
+          onClose={() => handleClose(null, 'clickaway')}
+          severity="success"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
           {message}
         </Alert>
       </Snackbar>

@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Plus, ChevronDown } from 'lucide-react';
-import { useApp } from '../hooks/useApp';
+import { useApp, useOutletId } from '../hooks/useApp';
 import { useToastOptional } from '../hooks/useToast';
 import { useActiveMenu } from '../hooks/queries';
 import { normalizeScanMenu } from '../utils/normalizeScanMenu';
@@ -23,7 +23,7 @@ export default function Menu() {
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
-  const outletId = state.outlet?.id ?? state.qrContext?.qrContext?.outletId ?? null;
+  const outletId = useOutletId();
   const currency = state.qrContext?.qrContext?.currency ?? 'INR';
 
   // Prefer menu from scan response when present – no API call (avoids duplicate/failing request)
