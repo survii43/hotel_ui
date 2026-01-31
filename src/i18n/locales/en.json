@@ -59,6 +59,10 @@
     "total": "Total",
     "viewOrder": "View order"
   },
+  "orderEntry": {
+    "manualTitle": "Enter table code",
+    "manualHint": "No table code in the link, or it didn’t work. Enter the code manually."
+  },
   "order": {
     "status_pending": "Pending",
     "status_confirmed": "Confirmed",

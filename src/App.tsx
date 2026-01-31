@@ -8,6 +8,7 @@ import Scan from './pages/Scan';
 import Menu from './pages/Menu';
 import Cart from './pages/Cart';
 import History from './pages/History';
+import OrderEntry from './pages/OrderEntry';
 import OrderTracking from './pages/OrderTracking';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/history" element={<History />} />
             <Route path="/order/:orderId" element={<OrderTracking />} />
+            <Route path="/order" element={<OrderEntry />} />
             <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
             <OrderStatusPopup />
