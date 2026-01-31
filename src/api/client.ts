@@ -1,4 +1,7 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+// Dev: empty = same-origin, Vite proxy to API. Production: server endpoint only (VITE_API_URL; no localhost fallback).
+const API_BASE = import.meta.env.DEV
+  ? (import.meta.env.VITE_API_URL !== undefined && import.meta.env.VITE_API_URL !== '' ? import.meta.env.VITE_API_URL : '')
+  : (import.meta.env.VITE_API_URL ?? '');
 
 function getHeaders(includeJson = true): HeadersInit {
   const headers: HeadersInit = {};

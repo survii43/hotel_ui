@@ -7,7 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
-import { useApp, useOutletId } from '../hooks/useApp';
+import { useApp, useOutletId, useOutletIdForOrder, useCurrency } from '../hooks/useApp';
 import { useCreateOrderMutation } from '../hooks/queries';
 import type { CartItem as CartItemType, CreateOrderRequest } from '../api/types';
 import AppBar from '../components/AppBar';
@@ -29,12 +29,13 @@ export default function Cart() {
 
   const cart = state.cart;
   const outletId = useOutletId();
+  const outletIdForOrder = useOutletIdForOrder();
   const orderType = state.orderType;
   const tableId = state.tableId ?? undefined;
   const tableNumber = state.tableNumber ?? undefined;
   const sessionId = state.sessionId ?? undefined;
 
-  const currency = state.qrContext?.qrContext?.currency ?? 'INR';
+  const currency = useCurrency();
 
   function getLineTotal(i: typeof cart[0]) {
     const base = i.unit_price * i.quantity;
@@ -76,11 +77,16 @@ export default function Cart() {
 
   async function handleConfirmOrder() {
     if (!outletId || cart.length === 0) return;
+    if (!outletIdForOrder) {
+      setError(t('scan.noOutlet'));
+      setShowConfirm(false);
+      return;
+    }
     setError(null);
     const orderTypeApi: 'dine_in' | 'takeaway' = orderType === 'dine_in' ? 'dine_in' : 'takeaway';
     const sendContact = orderTypeApi !== 'dine_in';
     const payload: CreateOrderRequest = {
-      outlet_id: outletId,
+      outlet_id: outletIdForOrder,
       order_type: orderTypeApi,
       items: cart.map((i: CartItemType) => ({
         menu_item_id: i.menu_item_id,
@@ -280,8 +286,15 @@ export default function Cart() {
               <span>{t('cart.subtotal')}</span>
               <strong>{currency} {subtotal.toFixed(2)}</strong>
             </div>
+            {!outletIdForOrder && outletId && (
+              <p className="cart-error">{t('scan.noOutlet')}</p>
+            )}
             {error && <p className="cart-error">{error}</p>}
-            <button type="submit" className="btn btn-primary cart-place-btn" disabled={placing}>
+            <button
+              type="submit"
+              className="btn btn-primary cart-place-btn"
+              disabled={placing || !outletIdForOrder}
+            >
               {placing ? t('common.loading') : t('cart.placeOrder')}
             </button>
           </form>

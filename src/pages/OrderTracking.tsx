@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useApp } from '../hooks/useApp';
+import { useApp, useCurrency } from '../hooks/useApp';
 import { useOrder } from '../hooks/queries';
+import { useOrderStatusLabels } from '../hooks/useOrderStatusLabels';
 import AppBar from '../components/AppBar';
 import Footer from '../components/Footer';
 import './OrderTracking.css';
@@ -13,7 +14,7 @@ export default function OrderTracking() {
   const { orderId } = useParams<{ orderId: string }>();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { state, dispatch } = useApp();
+  const { dispatch } = useApp();
 
   const { data, isLoading, error, isError } = useOrder(orderId ?? null, {
     enabled: !!orderId,
@@ -29,15 +30,7 @@ export default function OrderTracking() {
     }
   }, [order, dispatch]);
 
-  const statusKey: Record<string, string> = {
-    pending: t('order.status_pending'),
-    confirmed: t('order.status_confirmed'),
-    preparing: t('order.status_preparing'),
-    ready: t('order.status_ready'),
-    served: t('order.status_served'),
-    completed: t('order.status_completed'),
-    cancelled: t('order.status_cancelled'),
-  };
+  const statusLabels = useOrderStatusLabels();
 
   if (isLoading) {
     return (
@@ -70,7 +63,7 @@ export default function OrderTracking() {
     );
   }
 
-  const currency = state.qrContext?.qrContext?.currency ?? 'INR';
+  const currency = useCurrency();
 
   return (
     <>
@@ -81,7 +74,7 @@ export default function OrderTracking() {
             <div className="order-header-row">
               <span>{t('history.status')}</span>
               <span className={`order-status-badge status-${order.status}`}>
-                {statusKey[order.status] ?? order.status}
+                {statusLabels[order.status] ?? order.status}
               </span>
             </div>
             <div className="order-header-row">

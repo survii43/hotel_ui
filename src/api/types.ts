@@ -2,6 +2,8 @@
 
 export interface QRContext {
   outletId: string;
+  /** Full outlet UUID for order API when backend requires it; optional from scan response */
+  outletUuid?: string;
   outletType: string;
   tableNumber: string | null;
   tableId: string | null;

@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
-import { useApp } from '../hooks/useApp';
+import { useCartCount } from '../hooks/useApp';
 import CartSummaryBar, { CART_SUMMARY_BAR_HEIGHT } from './CartSummaryBar';
 import BottomNav from './BottomNav';
 import './Footer.css';
 
 export default function Footer() {
-  const { state } = useApp();
-  const cartCount = state.cart.reduce((sum, i) => sum + i.quantity, 0);
+  const cartCount = useCartCount();
   const showBar = cartCount > 0;
 
   useEffect(() => {

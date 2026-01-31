@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Plus, ChevronDown } from 'lucide-react';
-import { useApp, useOutletId } from '../hooks/useApp';
+import { useApp, useOutletId, useCurrency } from '../hooks/useApp';
 import { useToastOptional } from '../hooks/useToast';
 import { useActiveMenu } from '../hooks/queries';
 import { normalizeScanMenu } from '../utils/normalizeScanMenu';
@@ -24,7 +24,7 @@ export default function Menu() {
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   const outletId = useOutletId();
-  const currency = state.qrContext?.qrContext?.currency ?? 'INR';
+  const currency = useCurrency();
 
   // Prefer menu from scan response when present – no API call (avoids duplicate/failing request)
   const hasScanMenu =

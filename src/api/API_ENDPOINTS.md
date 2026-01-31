@@ -2,8 +2,8 @@
 
 | Method | Endpoint | Integrated | Usage |
 |--------|----------|------------|--------|
-| GET | `/api/customer/scan/:barcode` | ✅ | `scanBarcode()` – Scan page |
-| POST | `/api/customer/orders` | ✅ | `createOrder()` – Cart place order |
+| GET | `/api/customer/scan/:barcode` | ✅ | `scanBarcode()` – Scan page. Response must include outlet UUID in `outlet.uuid` or `qrContext.outletUuid` for POST orders. |
+| POST | `/api/customer/orders` | ✅ | `createOrder()` – Cart place order. Requires `outlet_id` as UUID. |
 | GET | `/api/customer/orders/:orderId` | ✅ | `getOrder()` – History, OrderTracking |
 | GET | `/api/customer/web/:barcode` | ✅ | `getWebAppRedirectUrl()` – optional redirect |
 | GET | `/api/customer/outlets/:businessReferenceId` | ✅ | `getOutlets()` – list outlets by business ref |

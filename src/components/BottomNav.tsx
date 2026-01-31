@@ -1,13 +1,12 @@
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { UtensilsCrossed, ShoppingCart, History } from 'lucide-react';
-import { useApp } from '../hooks/useApp';
+import { useCartCount } from '../hooks/useApp';
 import './BottomNav.css';
 
 export default function BottomNav() {
   const { t } = useTranslation();
-  const { state } = useApp();
-  const cartCount = state.cart.reduce((sum, i) => sum + i.quantity, 0);
+  const cartCount = useCartCount();
 
   return (
     <nav className="bottom-nav" role="navigation" aria-label={t('nav.menu')}>

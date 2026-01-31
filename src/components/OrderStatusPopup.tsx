@@ -1,18 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
 import { useApp } from '../hooks/useApp';
-import type { OrderStatus } from '../api/types';
+import { ORDER_STATUS_I18N_KEYS } from '../utils/orderStatus';
 import './OrderStatusPopup.css';
-
-const statusKey: Record<OrderStatus, string> = {
-  pending: 'order.status_pending',
-  confirmed: 'order.status_confirmed',
-  preparing: 'order.status_preparing',
-  ready: 'order.status_ready',
-  served: 'order.status_served',
-  completed: 'order.status_completed',
-  cancelled: 'order.status_cancelled',
-};
 
 export default function OrderStatusPopup() {
   const { t } = useTranslation();
@@ -32,7 +22,7 @@ export default function OrderStatusPopup() {
           <X size={20} />
         </button>
         <div className={`order-status-icon status-${status}`} />
-        <h3 className="order-status-title">{t(statusKey[status])}</h3>
+        <h3 className="order-status-title">{t(ORDER_STATUS_I18N_KEYS[status])}</h3>
         {state.currentOrder && (
           <p className="order-status-number">
             {t('history.orderNumber', { number: state.currentOrder.order_number })}

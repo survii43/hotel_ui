@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useApp } from '../hooks/useApp';
+import { useApp, useCurrency } from '../hooks/useApp';
 import { useOrder } from '../hooks/queries';
+import { useOrderStatusLabels } from '../hooks/useOrderStatusLabels';
 import { getOrder } from '../api/client';
 import AppBar from '../components/AppBar';
 import Footer from '../components/Footer';
@@ -18,6 +19,7 @@ export default function History() {
 
   const currentOrderId = state.currentOrderId;
   const currentOrder = state.currentOrder;
+  const currency = useCurrency();
 
   const { data: currentOrderData } = useOrder(currentOrderId ?? null, {
     enabled: !!currentOrderId && !currentOrder,
@@ -47,15 +49,7 @@ export default function History() {
     }
   }
 
-  const statusKey: Record<string, string> = {
-    pending: t('order.status_pending'),
-    confirmed: t('order.status_confirmed'),
-    preparing: t('order.status_preparing'),
-    ready: t('order.status_ready'),
-    served: t('order.status_served'),
-    completed: t('order.status_completed'),
-    cancelled: t('order.status_cancelled'),
-  };
+  const statusLabels = useOrderStatusLabels();
 
   return (
     <>
@@ -85,13 +79,13 @@ export default function History() {
               <p className="history-status">
                 <span className="history-status-label">{t('history.status')}</span>
                 <span className={`history-status-value status-${currentOrder.status}`}>
-                  {statusKey[currentOrder.status] ?? currentOrder.status}
+                  {statusLabels[currentOrder.status] ?? currentOrder.status}
                 </span>
               </p>
               <p className="history-total">
                 <span>{t('history.total')}</span>
                 <strong>
-                  {state.qrContext?.qrContext?.currency ?? 'INR'} {currentOrder.total_amount?.toFixed(2) ?? '0.00'}
+                  {currency} {currentOrder.total_amount?.toFixed(2) ?? '0.00'}
                 </strong>
               </p>
               <button
