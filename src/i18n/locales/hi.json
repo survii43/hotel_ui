@@ -1,0 +1,75 @@
+{
+  "app": { "name": "ऑर्डर" },
+  "nav": {
+    "menu": "मेन्यू",
+    "cart": "कार्ट",
+    "history": "इतिहास"
+  },
+  "scan": {
+    "title": "स्कैन करें या कोड दर्ज करें",
+    "placeholder": "QR URL पेस्ट करें या कोड दर्ज करें",
+    "scanBtn": "जारी रखें",
+    "noOutlet": "आउटलेट नहीं मिला। कोड जांचें।"
+  },
+  "menu": {
+    "title": "मेन्यू",
+    "categories": "श्रेणियां",
+    "addToCart": "कार्ट में डालें",
+    "quantity": "मात्रा",
+    "specialInstructions": "विशेष निर्देश",
+    "customize": "अनुकूलित करें",
+    "noMenu": "मेन्यू लोड नहीं। पहले कोड स्कैन करें।"
+  },
+  "cart": {
+    "title": "आपका कार्ट",
+    "empty": "आपका कार्ट खाली है",
+    "subtotal": "उप-योग",
+    "placeOrder": "ऑर्डर दें",
+    "itemCount": "{{count}} आइटम",
+    "itemCount_other": "{{count}} आइटम",
+    "remove": "हटाएं",
+    "customerName": "नाम",
+    "customerPhone": "फोन",
+    "customerEmail": "ईमेल (वैकल्पिक)",
+    "specialInstructions": "विशेष निर्देश"
+  },
+  "history": {
+    "title": "ऑर्डर इतिहास",
+    "empty": "अभी तक कोई ऑर्डर नहीं",
+    "trackOrder": "ऑर्डर ट्रैक करें",
+    "orderNumber": "ऑर्डर #{{number}}",
+    "status": "स्थिति",
+    "total": "कुल",
+    "viewOrder": "ऑर्डर देखें"
+  },
+  "order": {
+    "status_pending": "लंबित",
+    "status_confirmed": "पुष्ट",
+    "status_preparing": "तैयार हो रहा",
+    "status_ready": "तैयार",
+    "status_served": "परोसा गया",
+    "status_completed": "पूर्ण",
+    "status_cancelled": "रद्द",
+    "placed": "ऑर्डर दिया गया",
+    "estimatedTime": "अनुमानित {{minutes}} मिनट",
+    "tracking": "ऑर्डर ट्रैकिंग"
+  },
+  "notifications": {
+    "title": "सूचनाएं",
+    "empty": "कोई सूचना नहीं",
+    "markRead": "सभी पढ़े हुए मार्क करें"
+  },
+  "common": {
+    "loading": "लोड हो रहा...",
+    "error": "कुछ गलत हो गया",
+    "retry": "पुनः प्रयास",
+    "cancel": "रद्द",
+    "ok": "ठीक",
+    "save": "सहेजें",
+    "language": "भाषा",
+    "theme": "थीम",
+    "theme_light": "हल्का",
+    "theme_dark": "गहरा",
+    "theme_system": "सिस्टम"
+  }
+}

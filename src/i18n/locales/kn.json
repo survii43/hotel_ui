@@ -1,0 +1,67 @@
+{
+  "app": { "name": "ಆರ್ಡರ್" },
+  "nav": { "menu": "ಮೆನು", "cart": "ಕಾರ್ಟ್", "history": "ಇತಿಹಾಸ" },
+  "scan": {
+    "title": "ಸ್ಕ್ಯಾನ್ ಮಾಡಿ ಅಥವಾ ಕೋಡ್ ನಮೂದಿಸಿ",
+    "placeholder": "QR URL ಅಂಟಿಸಿ ಅಥವಾ ಕೋಡ್ ನಮೂದಿಸಿ",
+    "scanBtn": "ಮುಂದುವರಿಸಿ",
+    "noOutlet": "ಔಟ್ಲೆಟ್ ಸಿಗಲಿಲ್ಲ. ಕೋಡ್ ಪರಿಶೀಲಿಸಿ."
+  },
+  "menu": {
+    "title": "ಮೆನು",
+    "categories": "ವರ್ಗಗಳು",
+    "addToCart": "ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಿ",
+    "quantity": "ಪರಿಮಾಣ",
+    "specialInstructions": "ವಿಶೇಷ ಸೂಚನೆಗಳು",
+    "customize": "ಅನುಕೂಲೀಕರಿಸಿ",
+    "noMenu": "ಮೆನು ಲೋಡ್ ಆಗಿಲ್ಲ. ಮೊದಲು ಕೋಡ್ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ."
+  },
+  "cart": {
+    "title": "ನಿಮ್ಮ ಕಾರ್ಟ್",
+    "empty": "ನಿಮ್ಮ ಕಾರ್ಟ್ ಖಾಲಿಯಾಗಿದೆ",
+    "subtotal": "ಉಪಮೊತ್ತ",
+    "placeOrder": "ಆರ್ಡರ್ ಮಾಡಿ",
+    "itemCount": "{{count}} ಐಟಂ",
+    "itemCount_other": "{{count}} ಐಟಂಗಳು",
+    "remove": "ತೆಗೆದುಹಾಕಿ",
+    "customerName": "ಹೆಸರು",
+    "customerPhone": "ಫೋನ್",
+    "customerEmail": "ಇಮೇಲ್ (ಐಚ್ಛಿಕ)",
+    "specialInstructions": "ವಿಶೇಷ ಸೂಚನೆಗಳು"
+  },
+  "history": {
+    "title": "ಆರ್ಡರ್ ಇತಿಹಾಸ",
+    "empty": "ಇನ್ನೂ ಆರ್ಡರ್‌ಗಳಿಲ್ಲ",
+    "trackOrder": "ಆರ್ಡರ್ ಟ್ರ್ಯಾಕ್ ಮಾಡಿ",
+    "orderNumber": "ಆರ್ಡರ್ #{{number}}",
+    "status": "ಸ್ಥಿತಿ",
+    "total": "ಒಟ್ಟು",
+    "viewOrder": "ಆರ್ಡರ್ ನೋಡಿ"
+  },
+  "order": {
+    "status_pending": "ಬಾಕಿ",
+    "status_confirmed": "ದೃಢೀಕೃತ",
+    "status_preparing": "ತಯಾರಾಗುತ್ತಿದೆ",
+    "status_ready": "ಸಿದ್ಧ",
+    "status_served": "ಸೇವೆ ಮಾಡಲಾಗಿದೆ",
+    "status_completed": "ಪೂರ್ಣ",
+    "status_cancelled": "ರದ್ದು",
+    "placed": "ಆರ್ಡರ್ ನೀಡಲಾಗಿದೆ",
+    "estimatedTime": "ಅಂದಾಜು {{minutes}} ನಿಮಿ",
+    "tracking": "ಆರ್ಡರ್ ಟ್ರ್ಯಾಕಿಂಗ್"
+  },
+  "notifications": { "title": "ಅಧಿಸೂಚನೆಗಳು", "empty": "ಅಧಿಸೂಚನೆಗಳಿಲ್ಲ", "markRead": "ಎಲ್ಲಾ ಓದಿದಂತೆ ಗುರುತಿಸಿ" },
+  "common": {
+    "loading": "ಲೋಡ್ ಆಗುತ್ತಿದೆ...",
+    "error": "ಏನೋ ತಪ್ಪಾಗಿದೆ",
+    "retry": "ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ",
+    "cancel": "ರದ್ದು",
+    "ok": "ಸರಿ",
+    "save": "ಉಳಿಸಿ",
+    "language": "ಭಾಷೆ",
+    "theme": "ಥೀಮ್",
+    "theme_light": "ತೆಳು",
+    "theme_dark": "ಗಾಢ",
+    "theme_system": "ಸಿಸ್ಟಮ್"
+  }
+}

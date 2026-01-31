@@ -1,0 +1,67 @@
+{
+  "app": { "name": "ഓർഡർ" },
+  "nav": { "menu": "മെനു", "cart": "കാർട്ട്", "history": "ചരിത്രം" },
+  "scan": {
+    "title": "സ്കാൻ ചെയ്യുക അല്ലെങ്കിൽ കോഡ് നൽകുക",
+    "placeholder": "QR URL ഒട്ടിക്കുക അല്ലെങ്കിൽ കോഡ് നൽകുക",
+    "scanBtn": "തുടരുക",
+    "noOutlet": "ഔട്ട്ലെറ്റ് കണ്ടെത്തിയില്ല. കോഡ് പരിശോധിക്കുക."
+  },
+  "menu": {
+    "title": "മെനു",
+    "categories": "വിഭാഗങ്ങൾ",
+    "addToCart": "കാർട്ടിലേക്ക് ചേർക്കുക",
+    "quantity": "അളവ്",
+    "specialInstructions": "പ്രത്യേക നിർദ്ദേശങ്ങൾ",
+    "customize": "ഇഷ്ടാനുസൃതമാക്കുക",
+    "noMenu": "മെനു ലോഡ് ചെയ്തിട്ടില്ല. ആദ്യം കോഡ് സ്കാൻ ചെയ്യുക."
+  },
+  "cart": {
+    "title": "നിങ്ങളുടെ കാർട്ട്",
+    "empty": "നിങ്ങളുടെ കാർട്ട് ശൂന്യമാണ്",
+    "subtotal": "ഉപആകെ",
+    "placeOrder": "ഓർഡർ ചെയ്യുക",
+    "itemCount": "{{count}} ഇനം",
+    "itemCount_other": "{{count}} ഇനങ്ങൾ",
+    "remove": "നീക്കം ചെയ്യുക",
+    "customerName": "പേര്",
+    "customerPhone": "ഫോൺ",
+    "customerEmail": "ഇമെയിൽ (ഓപ്ഷണൽ)",
+    "specialInstructions": "പ്രത്യേക നിർദ്ദേശങ്ങൾ"
+  },
+  "history": {
+    "title": "ഓർഡർ ചരിത്രം",
+    "empty": "ഇതുവരെ ഓർഡറുകളില്ല",
+    "trackOrder": "ഓർഡർ ട്രാക്ക് ചെയ്യുക",
+    "orderNumber": "ഓർഡർ #{{number}}",
+    "status": "സ്ഥിതി",
+    "total": "ആകെ",
+    "viewOrder": "ഓർഡർ കാണുക"
+  },
+  "order": {
+    "status_pending": "തീർപ്പുകൽപ്പിക്കാത്തത്",
+    "status_confirmed": "സ്ഥിരീകരിച്ചു",
+    "status_preparing": "തയ്യാറാക്കുന്നു",
+    "status_ready": "തയ്യാർ",
+    "status_served": "സർവ് ചെയ്തു",
+    "status_completed": "പൂർത്തിയായി",
+    "status_cancelled": "റദ്ദാക്കി",
+    "placed": "ഓർഡർ നൽകി",
+    "estimatedTime": "ഏകദേശം {{minutes}} മിനിറ്റ്",
+    "tracking": "ഓർഡർ ട്രാക്കിംഗ്"
+  },
+  "notifications": { "title": "അറിയിപ്പുകൾ", "empty": "അറിയിപ്പുകളില്ല", "markRead": "എല്ലാം വായിച്ചതായി അടയാളപ്പെടുത്തുക" },
+  "common": {
+    "loading": "ലോഡ് ചെയ്യുന്നു...",
+    "error": "എന്തോ തെറ്റ് സംഭവിച്ചു",
+    "retry": "വീണ്ടും ശ്രമിക്കുക",
+    "cancel": "റദ്ദാക്കുക",
+    "ok": "ശരി",
+    "save": "സംരക്ഷിക്കുക",
+    "language": "ഭാഷ",
+    "theme": "തീം",
+    "theme_light": "ലൈറ്റ്",
+    "theme_dark": "ഡാർക്ക്",
+    "theme_system": "സിസ്റ്റം"
+  }
+}

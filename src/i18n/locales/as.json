@@ -1,0 +1,67 @@
+{
+  "app": { "name": "অৰ্ডাৰ" },
+  "nav": { "menu": "মেনু", "cart": "কাৰ্ট", "history": "ইতিহাস" },
+  "scan": {
+    "title": "স্ক্যান কৰক বা কোড সুমুৱাওক",
+    "placeholder": "QR URL পেষ্ট কৰক বা কোড সুমুৱাওক",
+    "scanBtn": "চালু ৰাখক",
+    "noOutlet": "আউটলেট পোৱা নগ'ল। কোড পৰীক্ষা কৰক।"
+  },
+  "menu": {
+    "title": "মেনু",
+    "categories": "শ্ৰেণীসমূহ",
+    "addToCart": "কাৰ্টত যোগ কৰক",
+    "quantity": "পৰিমাণ",
+    "specialInstructions": "বিশেষ নিৰ্দেশনা",
+    "customize": "কাষ্টমাইজ কৰক",
+    "noMenu": "মেনু ল'ড হোৱা নাই। প্ৰথমে কোড স্ক্যান কৰক।"
+  },
+  "cart": {
+    "title": "আপোনাৰ কাৰ্ট",
+    "empty": "আপোনাৰ কাৰ্ট খালি",
+    "subtotal": "উপমুঠ",
+    "placeOrder": "অৰ্ডাৰ দিয়ক",
+    "itemCount": "{{count}} আয়টেম",
+    "itemCount_other": "{{count}} আয়টেম",
+    "remove": "আতৰাওক",
+    "customerName": "নাম",
+    "customerPhone": "ফোন",
+    "customerEmail": "ইমেইল (ঐচ্ছিক)",
+    "specialInstructions": "বিশেষ নিৰ্দেশনা"
+  },
+  "history": {
+    "title": "অৰ্ডাৰ ইতিহাস",
+    "empty": "এতিয়াও অৰ্ডাৰ নাই",
+    "trackOrder": "অৰ্ডাৰ ট্ৰেক কৰক",
+    "orderNumber": "অৰ্ডাৰ #{{number}}",
+    "status": "স্থিতি",
+    "total": "মুঠ",
+    "viewOrder": "অৰ্ডাৰ চাওক"
+  },
+  "order": {
+    "status_pending": "বিচাৰাধীন",
+    "status_confirmed": "নিশ্চিত",
+    "status_preparing": "প্ৰস্তুত হৈ আছে",
+    "status_ready": "প্ৰস্তুত",
+    "status_served": "সেৱা কৰা হৈছে",
+    "status_completed": "সম্পূৰ্ণ",
+    "status_cancelled": "বাতিল",
+    "placed": "অৰ্ডাৰ দিয়া হৈছে",
+    "estimatedTime": "অনুমানিত {{minutes}} মিনিট",
+    "tracking": "অৰ্ডাৰ ট্ৰেকিং"
+  },
+  "notifications": { "title": "বিজ্ঞপ্তি", "empty": "কোনো বিজ্ঞপ্তি নাই", "markRead": "সকলো পঢ়া চিহ্নিত কৰক" },
+  "common": {
+    "loading": "ল'ড হৈ আছে...",
+    "error": "কিছু ভুল হৈছে",
+    "retry": "পুনৰ চেষ্টা কৰক",
+    "cancel": "বাতিল",
+    "ok": "ঠিক",
+    "save": "সংৰক্ষণ কৰক",
+    "language": "ভাষা",
+    "theme": "থিম",
+    "theme_light": "পোহৰ",
+    "theme_dark": "গাঢ়",
+    "theme_system": "চিষ্টেম"
+  }
+}

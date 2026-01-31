@@ -1,0 +1,67 @@
+{
+  "app": { "name": "ऑर्डर" },
+  "nav": { "menu": "मेनू", "cart": "कार्ट", "history": "इतिहास" },
+  "scan": {
+    "title": "स्कॅन करा किंवा कोड प्रविष्ट करा",
+    "placeholder": "QR URL पेस्ट करा किंवा कोड प्रविष्ट करा",
+    "scanBtn": "सुरू ठेवा",
+    "noOutlet": "आउटलेट सापडले नाही. कोड तपासा."
+  },
+  "menu": {
+    "title": "मेनू",
+    "categories": "श्रेण्या",
+    "addToCart": "कार्टमध्ये जोडा",
+    "quantity": "प्रमाण",
+    "specialInstructions": "विशेष सूचना",
+    "customize": "सानुकूलित करा",
+    "noMenu": "मेनू लोड झाले नाही. प्रथम कोड स्कॅन करा."
+  },
+  "cart": {
+    "title": "तुमचे कार्ट",
+    "empty": "तुमचे कार्ट रिक्त आहे",
+    "subtotal": "उपयोग",
+    "placeOrder": "ऑर्डर द्या",
+    "itemCount": "{{count}} आयटम",
+    "itemCount_other": "{{count}} आयटम",
+    "remove": "काढा",
+    "customerName": "नाव",
+    "customerPhone": "फोन",
+    "customerEmail": "ईमेल (पर्यायी)",
+    "specialInstructions": "विशेष सूचना"
+  },
+  "history": {
+    "title": "ऑर्डर इतिहास",
+    "empty": "अद्याप ऑर्डर नाहीत",
+    "trackOrder": "ऑर्डर ट्रॅक करा",
+    "orderNumber": "ऑर्डर #{{number}}",
+    "status": "स्थिती",
+    "total": "एकूण",
+    "viewOrder": "ऑर्डर पहा"
+  },
+  "order": {
+    "status_pending": "प्रलंबित",
+    "status_confirmed": "पुष्टी",
+    "status_preparing": "तयार होत आहे",
+    "status_ready": "तयार",
+    "status_served": "सर्व्ह केले",
+    "status_completed": "पूर्ण",
+    "status_cancelled": "रद्द",
+    "placed": "ऑर्डर दिला",
+    "estimatedTime": "अंदाजे {{minutes}} मिनिटे",
+    "tracking": "ऑर्डर ट्रॅकिंग"
+  },
+  "notifications": { "title": "सूचना", "empty": "सूचना नाहीत", "markRead": "सर्व वाचले म्हणून चिन्हांकित करा" },
+  "common": {
+    "loading": "लोड होत आहे...",
+    "error": "काहीतरी चूक झाली",
+    "retry": "पुन्हा प्रयत्न करा",
+    "cancel": "रद्द",
+    "ok": "ठीक",
+    "save": "जतन करा",
+    "language": "भाषा",
+    "theme": "थीम",
+    "theme_light": "हलका",
+    "theme_dark": "गडद",
+    "theme_system": "सिस्टम"
+  }
+}

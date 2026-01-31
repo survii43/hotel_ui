@@ -1,0 +1,67 @@
+{
+  "app": { "name": "ஆர்டர்" },
+  "nav": { "menu": "மெனு", "cart": "கார்ட்", "history": "வரலாறு" },
+  "scan": {
+    "title": "ஸ்கேன் செய்யவும் அல்லது குறியீட்டை உள்ளிடவும்",
+    "placeholder": "QR URL அடைக்கவும் அல்லது குறியீடு உள்ளிடவும்",
+    "scanBtn": "தொடரவும்",
+    "noOutlet": "அவுட்லெட் கிடைக்கவில்லை. குறியீட்டை சரிபார்க்கவும்."
+  },
+  "menu": {
+    "title": "மெனு",
+    "categories": "பிரிவுகள்",
+    "addToCart": "கார்ட்டில் சேர்",
+    "quantity": "அளவு",
+    "specialInstructions": "சிறப்பு அறிவுறுத்தல்கள்",
+    "customize": "தனிப்பயனாக்கு",
+    "noMenu": "மெனு ஏற்றப்படவில்லை. முதலில் குறியீட்டை ஸ்கேன் செய்யுங்கள்."
+  },
+  "cart": {
+    "title": "உங்கள் கார்ட்",
+    "empty": "உங்கள் கார்ட் காலியாக உள்ளது",
+    "subtotal": "உபத்தொகை",
+    "placeOrder": "ஆர்டர் செய்",
+    "itemCount": "{{count}} உருப்படி",
+    "itemCount_other": "{{count}} உருப்படிகள்",
+    "remove": "அகற்று",
+    "customerName": "பெயர்",
+    "customerPhone": "தொலைபேசி",
+    "customerEmail": "மின்னஞ்சல் (விரும்பினால்)",
+    "specialInstructions": "சிறப்பு அறிவுறுத்தல்கள்"
+  },
+  "history": {
+    "title": "ஆர்டர் வரலாறு",
+    "empty": "இன்னும் ஆர்டர்கள் இல்லை",
+    "trackOrder": "ஆர்டரை கண்காணி",
+    "orderNumber": "ஆர்டர் #{{number}}",
+    "status": "நிலை",
+    "total": "மொத்தம்",
+    "viewOrder": "ஆர்டரை காண்க"
+  },
+  "order": {
+    "status_pending": "நிலுவையில்",
+    "status_confirmed": "உறுதிப்படுத்தப்பட்டது",
+    "status_preparing": "தயாராகிறது",
+    "status_ready": "தயார்",
+    "status_served": "பரிமாறப்பட்டது",
+    "status_completed": "முடிந்தது",
+    "status_cancelled": "ரத்து",
+    "placed": "ஆர்டர் வைக்கப்பட்டது",
+    "estimatedTime": "ஏற். {{minutes}} நி",
+    "tracking": "ஆர்டர் கண்காணிப்பு"
+  },
+  "notifications": { "title": "அறிவிப்புகள்", "empty": "அறிவிப்புகள் இல்லை", "markRead": "அனைத்தும் படித்ததாக குறி" },
+  "common": {
+    "loading": "ஏற்றுகிறது...",
+    "error": "ஏதோ தவறு நடந்தது",
+    "retry": "மீண்டும் முயற்சி",
+    "cancel": "ரத்து",
+    "ok": "சரி",
+    "save": "சேமி",
+    "language": "மொழி",
+    "theme": "தீம்",
+    "theme_light": "வெளிர்",
+    "theme_dark": "இருள்",
+    "theme_system": "கணினி"
+  }
+}

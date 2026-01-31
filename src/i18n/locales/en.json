@@ -1,0 +1,75 @@
+{
+  "app": { "name": "Order" },
+  "nav": {
+    "menu": "Menu",
+    "cart": "Cart",
+    "history": "History"
+  },
+  "scan": {
+    "title": "Scan or enter code",
+    "placeholder": "Paste QR URL or enter code",
+    "scanBtn": "Continue",
+    "noOutlet": "No outlet found. Check the code."
+  },
+  "menu": {
+    "title": "Menu",
+    "categories": "Categories",
+    "addToCart": "Add to cart",
+    "quantity": "Quantity",
+    "specialInstructions": "Special instructions",
+    "customize": "Customize",
+    "noMenu": "No menu loaded. Scan a code first."
+  },
+  "cart": {
+    "title": "Your cart",
+    "empty": "Your cart is empty",
+    "subtotal": "Subtotal",
+    "placeOrder": "Place order",
+    "itemCount": "{{count}} item",
+    "itemCount_other": "{{count}} items",
+    "remove": "Remove",
+    "customerName": "Name",
+    "customerPhone": "Phone",
+    "customerEmail": "Email (optional)",
+    "specialInstructions": "Special instructions"
+  },
+  "history": {
+    "title": "Order history",
+    "empty": "No orders yet",
+    "trackOrder": "Track order",
+    "orderNumber": "Order #{{number}}",
+    "status": "Status",
+    "total": "Total",
+    "viewOrder": "View order"
+  },
+  "order": {
+    "status_pending": "Pending",
+    "status_confirmed": "Confirmed",
+    "status_preparing": "Preparing",
+    "status_ready": "Ready",
+    "status_served": "Served",
+    "status_completed": "Completed",
+    "status_cancelled": "Cancelled",
+    "placed": "Order placed",
+    "estimatedTime": "Est. {{minutes}} min",
+    "tracking": "Order tracking"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "empty": "No notifications",
+    "markRead": "Mark all read"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "ok": "OK",
+    "save": "Save",
+    "language": "Language",
+    "theme": "Theme",
+    "theme_light": "Light",
+    "theme_dark": "Dark",
+    "theme_system": "System"
+  }
+}

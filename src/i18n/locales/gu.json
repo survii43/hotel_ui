@@ -1,0 +1,67 @@
+{
+  "app": { "name": "ઓર્ડર" },
+  "nav": { "menu": "મેનૂ", "cart": "કાર્ટ", "history": "ઇતિહાસ" },
+  "scan": {
+    "title": "સ્કેન કરો અથવા કોડ દાખલ કરો",
+    "placeholder": "QR URL પેસ્ટ કરો અથવા કોડ દાખલ કરો",
+    "scanBtn": "ચાલુ રાખો",
+    "noOutlet": "આઉટલેટ મળ્યું નથી. કોડ તપાસો."
+  },
+  "menu": {
+    "title": "મેનૂ",
+    "categories": "શ્રેણીઓ",
+    "addToCart": "કાર્ટમાં ઉમેરો",
+    "quantity": "જથ્થો",
+    "specialInstructions": "ખાસ સૂચનાઓ",
+    "customize": "અનુકૂલિત કરો",
+    "noMenu": "મેનૂ લોડ થયું નથી. પહેલા કોડ સ્કેન કરો."
+  },
+  "cart": {
+    "title": "તમારું કાર્ટ",
+    "empty": "તમારું કાર્ટ ખાલી છે",
+    "subtotal": "ઉપયોગ",
+    "placeOrder": "ઓર્ડર કરો",
+    "itemCount": "{{count}} આઇટમ",
+    "itemCount_other": "{{count}} આઇટમ્સ",
+    "remove": "દૂર કરો",
+    "customerName": "નામ",
+    "customerPhone": "ફોન",
+    "customerEmail": "ઈમેલ (વૈકલ્પિક)",
+    "specialInstructions": "ખાસ સૂચનાઓ"
+  },
+  "history": {
+    "title": "ઓર્ડર ઇતિહાસ",
+    "empty": "હજુ ઓર્ડર નથી",
+    "trackOrder": "ઓર્ડર ટ્રેક કરો",
+    "orderNumber": "ઓર્ડર #{{number}}",
+    "status": "સ્થિતિ",
+    "total": "કુલ",
+    "viewOrder": "ઓર્ડર જુઓ"
+  },
+  "order": {
+    "status_pending": "બાકી",
+    "status_confirmed": "પુષ્ટિ",
+    "status_preparing": "તૈયાર થઈ રહ્યું છે",
+    "status_ready": "તૈયાર",
+    "status_served": "સર્વ કર્યું",
+    "status_completed": "પૂર્ણ",
+    "status_cancelled": "રદ",
+    "placed": "ઓર્ડર આપ્યો",
+    "estimatedTime": "અંદાજે {{minutes}} મિનિટ",
+    "tracking": "ઓર્ડર ટ્રેકિંગ"
+  },
+  "notifications": { "title": "સૂચનાઓ", "empty": "સૂચનાઓ નથી", "markRead": "બધું વાંચ્યું ચિહ્નિત કરો" },
+  "common": {
+    "loading": "લોડ થઈ રહ્યું છે...",
+    "error": "કંઈક ખોટું થયું",
+    "retry": "ફરી પ્રયાસ કરો",
+    "cancel": "રદ કરો",
+    "ok": "ઠીક",
+    "save": "સાચવો",
+    "language": "ભાષા",
+    "theme": "થીમ",
+    "theme_light": "હલકો",
+    "theme_dark": "ઘેરો",
+    "theme_system": "સિસ્ટમ"
+  }
+}

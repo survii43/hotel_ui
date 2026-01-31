@@ -1,0 +1,67 @@
+{
+  "app": { "name": "ਆਰਡਰ" },
+  "nav": { "menu": "ਮੀਨੂ", "cart": "ਕਾਰਟ", "history": "ਇਤਿਹਾਸ" },
+  "scan": {
+    "title": "ਸਕੈਨ ਕਰੋ ਜਾਂ ਕੋਡ ਦਾਖਲ ਕਰੋ",
+    "placeholder": "QR URL ਪੇਸਟ ਕਰੋ ਜਾਂ ਕੋਡ ਦਾਖਲ ਕਰੋ",
+    "scanBtn": "ਜਾਰੀ ਰੱਖੋ",
+    "noOutlet": "ਆਉਟਲੈਟ ਨਹੀਂ ਮਿਲੀ। ਕੋਡ ਚੈਕ ਕਰੋ।"
+  },
+  "menu": {
+    "title": "ਮੀਨੂ",
+    "categories": "ਸ਼੍ਰੇਣੀਆਂ",
+    "addToCart": "ਕਾਰਟ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰੋ",
+    "quantity": "ਮਾਤਰਾ",
+    "specialInstructions": "ਖਾਸ ਨਿਰਦੇਸ਼",
+    "customize": "ਅਨੁਕੂਲਿਤ ਕਰੋ",
+    "noMenu": "ਮੀਨੂ ਲੋਡ ਨਹੀਂ ਹੋਇਆ। ਪਹਿਲਾਂ ਕੋਡ ਸਕੈਨ ਕਰੋ।"
+  },
+  "cart": {
+    "title": "ਤੁਹਾਡਾ ਕਾਰਟ",
+    "empty": "ਤੁਹਾਡਾ ਕਾਰਟ ਖਾਲੀ ਹੈ",
+    "subtotal": "ਉਪ-ਜੋੜ",
+    "placeOrder": "ਆਰਡਰ ਦਿਓ",
+    "itemCount": "{{count}} ਆਈਟਮ",
+    "itemCount_other": "{{count}} ਆਈਟਮਾਂ",
+    "remove": "ਹਟਾਓ",
+    "customerName": "ਨਾਮ",
+    "customerPhone": "ਫੋਨ",
+    "customerEmail": "ਈਮੇਲ (ਵਿਕਲਪਿਕ)",
+    "specialInstructions": "ਖਾਸ ਨਿਰਦੇਸ਼"
+  },
+  "history": {
+    "title": "ਆਰਡਰ ਇਤਿਹਾਸ",
+    "empty": "ਅਜੇ ਆਰਡਰ ਨਹੀਂ",
+    "trackOrder": "ਆਰਡਰ ਟ੍ਰੈਕ ਕਰੋ",
+    "orderNumber": "ਆਰਡਰ #{{number}}",
+    "status": "ਸਥਿਤੀ",
+    "total": "ਕੁੱਲ",
+    "viewOrder": "ਆਰਡਰ ਦੇਖੋ"
+  },
+  "order": {
+    "status_pending": "ਬਕਾਇਆ",
+    "status_confirmed": "ਪੁਸ਼ਟੀ",
+    "status_preparing": "ਤਿਆਰ ਹੋ ਰਿਹਾ ਹੈ",
+    "status_ready": "ਤਿਆਰ",
+    "status_served": "ਸਰਵ ਕੀਤਾ",
+    "status_completed": "ਪੂਰਾ",
+    "status_cancelled": "ਰੱਦ",
+    "placed": "ਆਰਡਰ ਦਿੱਤਾ ਗਿਆ",
+    "estimatedTime": "ਅੰਦਾਜ਼ਨ {{minutes}} ਮਿੰਟ",
+    "tracking": "ਆਰਡਰ ਟ੍ਰੈਕਿੰਗ"
+  },
+  "notifications": { "title": "ਸੂਚਨਾਵਾਂ", "empty": "ਕੋਈ ਸੂਚਨਾ ਨਹੀਂ", "markRead": "ਸਭ ਪੜ੍ਹਿਆ ਚਿੰਨ੍ਹਿਤ ਕਰੋ" },
+  "common": {
+    "loading": "ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...",
+    "error": "ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ",
+    "retry": "ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ",
+    "cancel": "ਰੱਦ ਕਰੋ",
+    "ok": "ਠੀਕ",
+    "save": "ਸੇਵ ਕਰੋ",
+    "language": "ਭਾਸ਼ਾ",
+    "theme": "ਥੀਮ",
+    "theme_light": "ਹਲਕਾ",
+    "theme_dark": "ਗੂੜ੍ਹਾ",
+    "theme_system": "ਸਿਸਟਮ"
+  }
+}

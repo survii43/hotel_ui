@@ -1,0 +1,72 @@
+.history-page {
+  padding: 1rem 0 2rem;
+}
+
+.history-track {
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+}
+
+.history-track h2,
+.history-current h2 {
+  margin: 0 0 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.history-track-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.history-error {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #dc2626;
+}
+
+.history-current {
+  padding: 1.25rem;
+}
+
+.history-status,
+.history-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.history-status-value {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.history-status-value.status-ready,
+.history-status-value.status-served,
+.history-status-value.status-completed {
+  color: #059669;
+}
+
+.history-status-value.status-cancelled {
+  color: #dc2626;
+}
+
+.history-total strong {
+  color: var(--primary);
+}
+
+.history-current .btn {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.history-empty {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 2rem 0;
+}

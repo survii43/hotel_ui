@@ -1,0 +1,67 @@
+{
+  "app": { "name": "آرڈر" },
+  "nav": { "menu": "مینو", "cart": "کارٹ", "history": "تاریخ" },
+  "scan": {
+    "title": "سکین کریں یا کوڈ درج کریں",
+    "placeholder": "QR URL پیسٹ کریں یا کوڈ درج کریں",
+    "scanBtn": "جاری رکھیں",
+    "noOutlet": "آؤٹ لیٹ نہیں ملا۔ کوڈ چیک کریں۔"
+  },
+  "menu": {
+    "title": "مینو",
+    "categories": "زمرے",
+    "addToCart": "کارٹ میں شامل کریں",
+    "quantity": "مقدار",
+    "specialInstructions": "خصوصی ہدایات",
+    "customize": "حسب ضرورت",
+    "noMenu": "مینو لوڈ نہیں ہوا۔ پہلے کوڈ سکین کریں۔"
+  },
+  "cart": {
+    "title": "آپ کا کارٹ",
+    "empty": "آپ کا کارٹ خالی ہے",
+    "subtotal": "ذیلی کل",
+    "placeOrder": "آرڈر دیں",
+    "itemCount": "{{count}} آئٹم",
+    "itemCount_other": "{{count}} آئٹمز",
+    "remove": "ہٹائیں",
+    "customerName": "نام",
+    "customerPhone": "فون",
+    "customerEmail": "ای میل (اختیاری)",
+    "specialInstructions": "خصوصی ہدایات"
+  },
+  "history": {
+    "title": "آرڈر کی تاریخ",
+    "empty": "ابھی تک آرڈر نہیں",
+    "trackOrder": "آرڈر ٹریک کریں",
+    "orderNumber": "آرڈر #{{number}}",
+    "status": "حیثیت",
+    "total": "کل",
+    "viewOrder": "آرڈر دیکھیں"
+  },
+  "order": {
+    "status_pending": "زیر التوا",
+    "status_confirmed": "تصدیق شدہ",
+    "status_preparing": "تیار ہو رہا ہے",
+    "status_ready": "تیار",
+    "status_served": "پیش کیا گیا",
+    "status_completed": "مکمل",
+    "status_cancelled": "منسوخ",
+    "placed": "آرڈر دیا گیا",
+    "estimatedTime": "تقریباً {{minutes}} منٹ",
+    "tracking": "آرڈر ٹریکنگ"
+  },
+  "notifications": { "title": "نوٹیفکیشنز", "empty": "کوئی نوٹیفکیشن نہیں", "markRead": "سب پڑھا ہوا نشان زد کریں" },
+  "common": {
+    "loading": "لوڈ ہو رہا ہے...",
+    "error": "کچھ غلط ہو گیا",
+    "retry": "دوبارہ کوشش کریں",
+    "cancel": "منسوخ",
+    "ok": "ٹھیک",
+    "save": "محفوظ کریں",
+    "language": "زبان",
+    "theme": "تھیم",
+    "theme_light": "ہلکا",
+    "theme_dark": "گہرا",
+    "theme_system": "سسٹم"
+  }
+}

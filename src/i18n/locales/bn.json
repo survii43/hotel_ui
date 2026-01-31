@@ -1,0 +1,67 @@
+{
+  "app": { "name": "অর্ডার" },
+  "nav": { "menu": "মেনু", "cart": "কার্ট", "history": "ইতিহাস" },
+  "scan": {
+    "title": "স্ক্যান করুন বা কোড লিখুন",
+    "placeholder": "QR URL পেস্ট করুন বা কোড লিখুন",
+    "scanBtn": "চালিয়ে যান",
+    "noOutlet": "আউটলেট পাওয়া যায়নি। কোড পরীক্ষা করুন।"
+  },
+  "menu": {
+    "title": "মেনু",
+    "categories": "বিভাগ",
+    "addToCart": "কার্টে যোগ করুন",
+    "quantity": "পরিমাণ",
+    "specialInstructions": "বিশেষ নির্দেশনা",
+    "customize": "কাস্টমাইজ করুন",
+    "noMenu": "মেনু লোড হয়নি। প্রথমে কোড স্ক্যান করুন।"
+  },
+  "cart": {
+    "title": "আপনার কার্ট",
+    "empty": "আপনার কার্ট খালি",
+    "subtotal": "উপমোট",
+    "placeOrder": "অর্ডার দিন",
+    "itemCount": "{{count}} আইটেম",
+    "itemCount_other": "{{count}} আইটেম",
+    "remove": "সরান",
+    "customerName": "নাম",
+    "customerPhone": "ফোন",
+    "customerEmail": "ইমেইল (ঐচ্ছিক)",
+    "specialInstructions": "বিশেষ নির্দেশনা"
+  },
+  "history": {
+    "title": "অর্ডার ইতিহাস",
+    "empty": "এখনও অর্ডার নেই",
+    "trackOrder": "অর্ডার ট্র্যাক করুন",
+    "orderNumber": "অর্ডার #{{number}}",
+    "status": "স্থিতি",
+    "total": "মোট",
+    "viewOrder": "অর্ডার দেখুন"
+  },
+  "order": {
+    "status_pending": "অপেক্ষমাণ",
+    "status_confirmed": "নিশ্চিত",
+    "status_preparing": "প্রস্তুত হচ্ছে",
+    "status_ready": "প্রস্তুত",
+    "status_served": "পরিবেশন করা হয়েছে",
+    "status_completed": "সম্পন্ন",
+    "status_cancelled": "বাতিল",
+    "placed": "অর্ডার দেওয়া হয়েছে",
+    "estimatedTime": "আনুমানিক {{minutes}} মিনিট",
+    "tracking": "অর্ডার ট্র্যাকিং"
+  },
+  "notifications": { "title": "বিজ্ঞপ্তি", "empty": "কোন বিজ্ঞপ্তি নেই", "markRead": "সব পঠিত চিহ্নিত করুন" },
+  "common": {
+    "loading": "লোড হচ্ছে...",
+    "error": "কিছু ভুল হয়েছে",
+    "retry": "পুনরায় চেষ্টা করুন",
+    "cancel": "বাতিল",
+    "ok": "ঠিক আছে",
+    "save": "সংরক্ষণ",
+    "language": "ভাষা",
+    "theme": "থিম",
+    "theme_light": "হালকা",
+    "theme_dark": "গাঢ়",
+    "theme_system": "সিস্টেম"
+  }
+}

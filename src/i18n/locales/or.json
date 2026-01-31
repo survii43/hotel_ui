@@ -1,0 +1,67 @@
+{
+  "app": { "name": "ଅର୍ଡର୍" },
+  "nav": { "menu": "ମେନୁ", "cart": "କାର୍ଟ", "history": "ଇତିହାସ" },
+  "scan": {
+    "title": "ସ୍କାନ୍ କରନ୍ତୁ କିମ୍ବା କୋଡ୍ ପ୍ରବେଶ କରନ୍ତୁ",
+    "placeholder": "QR URL ପେଷ୍ଟ କରନ୍ତୁ କିମ୍ବା କୋଡ୍ ପ୍ରବେଶ କରନ୍ତୁ",
+    "scanBtn": "ଜାରି ରଖନ୍ତୁ",
+    "noOutlet": "ଆଉଟଲେଟ୍ ମିଳିଲା ନାହିଁ। କୋଡ୍ ଯାଞ୍ଚ କରନ୍ତୁ।"
+  },
+  "menu": {
+    "title": "ମେନୁ",
+    "categories": "ବର୍ଗଗୁଡିକ",
+    "addToCart": "କାର୍ଟରେ ଯୋଡନ୍ତୁ",
+    "quantity": "ପରିମାଣ",
+    "specialInstructions": "ବିଶେଷ ନିର୍ଦ୍ଦେଶ",
+    "customize": "ଅନୁକୂଳିତ କରନ୍ତୁ",
+    "noMenu": "ମେନୁ ଲୋଡ୍ ହୋଇନାହିଁ। ପ୍ରଥମେ କୋଡ୍ ସ୍କାନ୍ କରନ୍ତୁ।"
+  },
+  "cart": {
+    "title": "ଆପଣଙ୍କ କାର୍ଟ",
+    "empty": "ଆପଣଙ୍କ କାର୍ଟ ଖାଲି ଅଛି",
+    "subtotal": "ଉପଯୋଗ",
+    "placeOrder": "ଅର୍ଡର୍ ଦିଅନ୍ତୁ",
+    "itemCount": "{{count}} ଆଇଟମ୍",
+    "itemCount_other": "{{count}} ଆଇଟମ୍",
+    "remove": "ଅପସାରଣ କରନ୍ତୁ",
+    "customerName": "ନାମ",
+    "customerPhone": "ଫୋନ୍",
+    "customerEmail": "ଇମେଲ୍ (ବିକଳ୍ପ)",
+    "specialInstructions": "ବିଶେଷ ନିର୍ଦ୍ଦେଶ"
+  },
+  "history": {
+    "title": "ଅର୍ଡର୍ ଇତିହାସ",
+    "empty": "ଏଯାଏଁ ଅର୍ଡର୍ ନାହିଁ",
+    "trackOrder": "ଅର୍ଡର୍ ଟ୍ରାକ୍ କରନ୍ତୁ",
+    "orderNumber": "ଅର୍ଡର୍ #{{number}}",
+    "status": "ସ୍ଥିତି",
+    "total": "ମୋଟ",
+    "viewOrder": "ଅର୍ଡର୍ ଦେଖନ୍ତୁ"
+  },
+  "order": {
+    "status_pending": "ବିଚାରାଧୀନ",
+    "status_confirmed": "ନିଶ୍ଚିତ",
+    "status_preparing": "ପ୍ରସ୍ତୁତ ହେଉଛି",
+    "status_ready": "ପ୍ରସ୍ତୁତ",
+    "status_served": "ସେବା କରାଯାଇଛି",
+    "status_completed": "ସମାପ୍ତ",
+    "status_cancelled": "ବାତିଲ୍",
+    "placed": "ଅର୍ଡର୍ ଦିଆଯାଇଛି",
+    "estimatedTime": "ଅନୁମାନିତ {{minutes}} ମିନିଟ୍",
+    "tracking": "ଅର୍ଡର୍ ଟ୍ରାକିଂଗ୍"
+  },
+  "notifications": { "title": "ସୂଚନା", "empty": "କୌଣସି ସୂଚନା ନାହିଁ", "markRead": "ସମସ୍ତ ପଢ଼ିଥିବା ଚିହ୍ନିତ କରନ୍ତୁ" },
+  "common": {
+    "loading": "ଲୋଡ୍ ହେଉଛି...",
+    "error": "କିଛି ଭୁଲ୍ ହୋଇଛି",
+    "retry": "ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ",
+    "cancel": "ବାତିଲ୍ କରନ୍ତୁ",
+    "ok": "ଠିକ୍",
+    "save": "ସେଭ୍ କରନ୍ତୁ",
+    "language": "ଭାଷା",
+    "theme": "ଥିମ୍",
+    "theme_light": "ହାଲୁକା",
+    "theme_dark": "ଗାଢ଼",
+    "theme_system": "ସିଷ୍ଟମ୍"
+  }
+}

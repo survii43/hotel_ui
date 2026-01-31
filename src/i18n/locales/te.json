@@ -1,0 +1,67 @@
+{
+  "app": { "name": "ఆర్డర్" },
+  "nav": { "menu": "మెను", "cart": "కార్ట్", "history": "చరిత్ర" },
+  "scan": {
+    "title": "స్కాన్ చేయండి లేదా కోడ్ నమోదు చేయండి",
+    "placeholder": "QR URL అతికించండి లేదా కోడ్ నమోదు చేయండి",
+    "scanBtn": "కొనసాగించండి",
+    "noOutlet": "అవుట్లెట్ కనుగొనబడలేదు. కోడ్ తనిఖీ చేయండి."
+  },
+  "menu": {
+    "title": "మెను",
+    "categories": "వర్గాలు",
+    "addToCart": "కార్ట్‌కు జోడించండి",
+    "quantity": "పరిమాణం",
+    "specialInstructions": "ప్రత్యేక సూచనలు",
+    "customize": "అనుకూలీకరించండి",
+    "noMenu": "మెను లోడ్ కాలేదు. ముందుగా కోడ్ స్కాన్ చేయండి."
+  },
+  "cart": {
+    "title": "మీ కార్ట్",
+    "empty": "మీ కార్ట్ ఖాళీగా ఉంది",
+    "subtotal": "ఉపమొత్తం",
+    "placeOrder": "ఆర్డర్ చేయండి",
+    "itemCount": "{{count}} అంశం",
+    "itemCount_other": "{{count}} అంశాలు",
+    "remove": "తొలగించండి",
+    "customerName": "పేరు",
+    "customerPhone": "ఫోన్",
+    "customerEmail": "ఇమెయిల్ (ఐచ్ఛికం)",
+    "specialInstructions": "ప్రత్యేక సూచనలు"
+  },
+  "history": {
+    "title": "ఆర్డర్ చరిత్ర",
+    "empty": "ఇంకా ఆర్డర్లు లేవు",
+    "trackOrder": "ఆర్డర్ ట్రాక్ చేయండి",
+    "orderNumber": "ఆర్డర్ #{{number}}",
+    "status": "స్థితి",
+    "total": "మొత్తం",
+    "viewOrder": "ఆర్డర్ చూడండి"
+  },
+  "order": {
+    "status_pending": "పెండింగ్",
+    "status_confirmed": "నిర్ధారించబడింది",
+    "status_preparing": "తయారవుతోంది",
+    "status_ready": "సిద్ధం",
+    "status_served": "సర్వ్ చేయబడింది",
+    "status_completed": "పూర్తి",
+    "status_cancelled": "రద్దు",
+    "placed": "ఆర్డర్ ఇవ్వబడింది",
+    "estimatedTime": "అంచనా {{minutes}} నిమి",
+    "tracking": "ఆర్డర్ ట్రాకింగ్"
+  },
+  "notifications": { "title": "నోటిఫికేషన్లు", "empty": "నోటిఫికేషన్లు లేవు", "markRead": "అన్నీ పఠించినట్లు గుర్తించండి" },
+  "common": {
+    "loading": "లోడ్ అవుతోంది...",
+    "error": "ఏదో తప్పు జరిగింది",
+    "retry": "మళ్ళీ ప్రయత్నించండి",
+    "cancel": "రద్దు",
+    "ok": "సరే",
+    "save": "సేవ్",
+    "language": "భాష",
+    "theme": "థీమ్",
+    "theme_light": "లైట్",
+    "theme_dark": "డార్క్",
+    "theme_system": "సిస్టమ్"
+  }
+}

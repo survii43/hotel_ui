@@ -1,0 +1,124 @@
+.order-tracking-page {
+  padding: 1rem 0 2rem;
+}
+
+.order-loading,
+.order-error {
+  padding: 2rem 0;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.order-error {
+  color: #dc2626;
+}
+
+.order-header {
+  margin-bottom: 1rem;
+  padding: 1.25rem;
+}
+
+.order-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.order-header-row strong {
+  color: var(--primary);
+}
+
+.order-status-badge {
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+}
+
+.order-status-badge.status-pending {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.order-status-badge.status-confirmed,
+.order-status-badge.status-preparing {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.order-status-badge.status-ready,
+.order-status-badge.status-served,
+.order-status-badge.status-completed {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.order-status-badge.status-cancelled {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+[data-theme="dark"] .order-status-badge.status-pending {
+  background: rgba(245, 158, 11, 0.2);
+}
+
+[data-theme="dark"] .order-status-badge.status-ready,
+[data-theme="dark"] .order-status-badge.status-served,
+[data-theme="dark"] .order-status-badge.status-completed {
+  background: rgba(16, 185, 129, 0.2);
+}
+
+[data-theme="dark"] .order-status-badge.status-cancelled {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+.order-outlet,
+.order-table {
+  margin: 0.5rem 0 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.order-items {
+  padding: 1.25rem;
+}
+
+.order-items h3 {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.order-items-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.order-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.9rem;
+}
+
+.order-item-row:last-child {
+  border-bottom: none;
+}
+
+.order-item-name {
+  color: var(--text-primary);
+}
+
+.order-item-price {
+  font-weight: 500;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
