@@ -55,13 +55,15 @@ function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case 'SET_QR': {
         const qr = action.payload.qrContext;
-        const rawOutlet = action.payload.outlet as { name?: string; contact?: { phone?: string }; address?: { line1?: string; city?: string } } | undefined;
-        const outlet = qr?.outletId
+        const rawOutlet = action.payload.outlet as OutletInfo | undefined;
+        // Use outlet.id from response (full UUID); do not use qrContext.outletId which may be a short code
+        const outletId = rawOutlet?.id ?? qr?.outletId ?? null;
+        const outlet = outletId
           ? {
-              id: qr.outletId,
+              id: outletId,
               name: rawOutlet?.name ?? 'Outlet',
-              phone: rawOutlet?.contact?.phone,
-              address: rawOutlet?.address?.line1 ?? rawOutlet?.address?.city,
+              phone: rawOutlet?.phone ?? (rawOutlet as { contact?: { phone?: string } })?.contact?.phone,
+              address: rawOutlet?.address ?? (rawOutlet as { address?: { line1?: string; city?: string } })?.address?.line1 ?? (rawOutlet as { address?: { line1?: string; city?: string } })?.address?.city,
             }
           : null;
         return {
