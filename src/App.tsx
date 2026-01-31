@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { MuiThemeProviderWrapper } from './theme/MuiThemeProvider';
 import { AppProvider } from './contexts/AppContext';
 import DeviceFrame from './components/DeviceFrame';
 import OrderStatusPopup from './components/OrderStatusPopup';
@@ -12,9 +13,11 @@ import OrderTracking from './pages/OrderTracking';
 function App() {
   return (
     <ThemeProvider>
-      <AppProvider>
-        <BrowserRouter>
-          <DeviceFrame>
+      <MuiThemeProviderWrapper>
+        <AppProvider>
+          <BrowserRouter>
+            <div className="app-layout">
+            <DeviceFrame>
             <Routes>
             <Route path="/" element={<Scan />} />
             <Route path="/menu" element={<Menu />} />
@@ -25,8 +28,10 @@ function App() {
             </Routes>
             <OrderStatusPopup />
           </DeviceFrame>
+            </div>
         </BrowserRouter>
       </AppProvider>
+      </MuiThemeProviderWrapper>
     </ThemeProvider>
   );
 }

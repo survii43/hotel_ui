@@ -1,16 +1,18 @@
-/* Fixed at device bottom, above home indicator strip */
+/* Fixed at bottom of device screen; inner page content scrolls above it */
 .bottom-nav {
   position: fixed;
-  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  bottom: var(--home-indicator-clearance);
   left: 0;
   right: 0;
+  width: 100%;
+  min-height: var(--bottom-nav-height);
   z-index: 90;
   display: flex;
   align-items: stretch;
   justify-content: space-around;
   background: var(--app-bar-bg);
   border-top: 1px solid var(--border);
-  padding-bottom: max(env(safe-area-inset-bottom, 0px), 8px);
+  padding-bottom: max(var(--safe-bottom), 8px);
   box-shadow: 0 -2px 10px var(--shadow);
   max-width: 430px;
   margin-left: auto;

@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { X, Plus, Minus } from 'lucide-react';
 import type { MenuItemSummary } from '../api/types';
@@ -123,7 +124,15 @@ export default function AddToCartModal({ item, currency, onAdd, onClose }: AddTo
     else setDragY(0);
   }, [onClose]);
 
-  return (
+  // Portal to document.body so fixed positioning is relative to viewport (avoids DeviceFrame transform/overflow clipping on real devices)
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
+  const modalContent = (
     <div
       className="add-to-cart-overlay"
       role="dialog"
@@ -274,4 +283,6 @@ export default function AddToCartModal({ item, currency, onAdd, onClose }: AddTo
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 }

@@ -2,6 +2,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Minus, Plus, Trash2 } from 'lucide-react';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
 import { useApp } from '../contexts/AppContext';
 import { createOrder } from '../api/client';
 import type { CartItem as CartItemType } from '../api/types';
@@ -279,33 +284,38 @@ export default function Cart() {
               {placing ? t('common.loading') : t('cart.placeOrder')}
             </button>
           </form>
-          {showConfirm && (
-            <div className="cart-confirm-overlay" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
-              <div className="cart-confirm-modal card">
-                <h2 id="confirm-title" className="cart-confirm-title">{t('cart.reviewOrder')}</h2>
-                <ul className="cart-confirm-list">
-                  {cart.map((item, index) => (
-                    <li key={`${item.menu_item_id}-${index}`}>
-                      <span>{item.menu_item_name} × {item.quantity}</span>
-                      <span>{currency} {getLineTotal(item).toFixed(2)}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="cart-confirm-total">
-                  <span>{t('cart.subtotal')}</span>
-                  <strong>{currency} {subtotal.toFixed(2)}</strong>
-                </div>
-                <div className="cart-confirm-actions">
-                  <button type="button" className="btn btn-secondary" onClick={() => setShowConfirm(false)}>
-                    {t('common.cancel')}
-                  </button>
-                  <button type="button" className="btn btn-primary" onClick={handleConfirmOrder} disabled={placing}>
-                    {placing ? t('common.loading') : t('cart.confirmOrder')}
-                  </button>
-                </div>
+          <Dialog
+            open={showConfirm}
+            onClose={() => setShowConfirm(false)}
+            aria-labelledby="confirm-title"
+            PaperProps={{ className: 'cart-confirm-paper' }}
+          >
+            <DialogTitle id="confirm-title" className="cart-confirm-title">
+              {t('cart.reviewOrder')}
+            </DialogTitle>
+            <DialogContent>
+              <ul className="cart-confirm-list">
+                {cart.map((item, index) => (
+                  <li key={`${item.menu_item_id}-${index}`}>
+                    <span>{item.menu_item_name} × {item.quantity}</span>
+                    <span>{currency} {getLineTotal(item).toFixed(2)}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="cart-confirm-total">
+                <span>{t('cart.subtotal')}</span>
+                <strong>{currency} {subtotal.toFixed(2)}</strong>
               </div>
-            </div>
-          )}
+            </DialogContent>
+            <DialogActions className="cart-confirm-actions">
+              <Button color="inherit" onClick={() => setShowConfirm(false)}>
+                {t('common.cancel')}
+              </Button>
+              <Button variant="contained" color="primary" onClick={handleConfirmOrder} disabled={placing}>
+                {placing ? t('common.loading') : t('cart.confirmOrder')}
+              </Button>
+            </DialogActions>
+          </Dialog>
         </div>
       </main>
       <BottomNav />

@@ -202,22 +202,11 @@
   font-size: 1.0625rem;
 }
 
-.cart-confirm-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 250;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.5);
-  animation: overlay-fade 0.2s ease;
-}
-
-.cart-confirm-modal {
+/* MUI Dialog confirm – paper scoped so layout matches previous modal */
+.cart-confirm-paper {
   width: 100%;
   max-width: 400px;
-  padding: 1.25rem;
+  margin: 1rem;
 }
 
 .cart-confirm-title {
@@ -265,9 +254,10 @@
 .cart-confirm-actions {
   display: flex;
   gap: 0.75rem;
-  margin-top: 0.5rem;
+  padding: 1rem 1.5rem !important;
 }
 
-.cart-confirm-actions .btn {
+.cart-confirm-actions .btn,
+.cart-confirm-actions button {
   flex: 1;
 }

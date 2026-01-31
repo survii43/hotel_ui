@@ -1,7 +1,13 @@
-/* Bottom sheet: device-style with safe area + home indicator clearance */
+/* Bottom sheet: portal to body so fixed is viewport-relative; use dvh so it matches visible area on real devices */
 .add-to-cart-overlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  min-height: 100dvh;
+  max-height: 100dvh;
   z-index: 300;
   display: flex;
   align-items: flex-end;
@@ -16,7 +22,7 @@
 .add-to-cart-modal {
   width: 100%;
   max-width: 480px;
-  max-height: min(90vh, calc(100vh - env(safe-area-inset-bottom, 0px) - 36px));
+  max-height: min(90dvh, calc(100dvh - env(safe-area-inset-bottom, 0px) - 36px));
   display: flex;
   flex-direction: column;
   background: var(--surface);
@@ -335,6 +341,7 @@
 
   .add-to-cart-modal {
     max-height: 85vh;
+    max-height: min(85vh, 85dvh);
     border-radius: var(--radius-xl);
   }
 }

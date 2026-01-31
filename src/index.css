@@ -20,6 +20,10 @@
   --radius-xl: 16px;
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --status-bar-height: 44px;
+  --app-bar-height: 56px;
+  --bottom-nav-height: 56px;
+  --home-indicator-clearance: calc(20px + var(--safe-bottom));
+  --bottom-bar-total: calc(var(--bottom-nav-height) + var(--home-indicator-clearance));
   --error: #dc2626;
   /* Order status badge/icon palette – shared by OrderTracking & OrderStatusPopup */
   --status-pending-bg: #fef3c7;
@@ -68,34 +72,61 @@
 html {
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
+  height: 100%;
+  height: 100dvh;
+  overflow: hidden;
 }
 
 body {
   margin: 0;
+  height: 100%;
+  min-height: 100dvh;
+  overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
   line-height: 1.5;
   color: var(--text-primary);
   background: #1a1a1a;
-  min-height: 100vh;
-  min-height: 100dvh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
-  min-height: 100vh;
+  height: 100%;
   min-height: 100dvh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-/* Status bar lives inside device frame; content below it */
+/* Chain height so only .main-content scrolls; every level must pass height down */
+#root > *,
+.app-layout,
+.device-bezel,
+.device-frame,
+.device-screen,
+.device-content {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#root > * {
+  height: 100%;
+}
+
+.app-layout {
+  height: 100%;
+}
+
+/* AppBar and BottomNav are fixed; only .main-content scrolls */
 .device-content .app-bar {
   padding-top: 0;
   flex-shrink: 0;
 }
 
-/* Main content area – only this scrolls; bottom nav fixed at device bottom */
+/* Main content area – only this scrolls; padding so content is not under fixed AppBar/BottomNav */
 .main-content {
   flex: 1;
   display: flex;
@@ -104,10 +135,17 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  padding-bottom: calc(64px + 20px + var(--safe-bottom));
+  touch-action: pan-y;
+  padding-top: var(--app-bar-height);
+  padding-bottom: var(--bottom-bar-total);
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+}
+
+/* Allow main’s content to extend so scroll is triggered when content is tall */
+.main-content > * {
+  min-height: min-content;
 }
 
 @media (min-width: 1024px) {

@@ -1,12 +1,14 @@
 /* Bezel: outer area (like desk/table) – dark so the “phone” stands out */
 .device-bezel {
-  min-height: 100vh;
-  min-height: 100dvh;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
   background: #1a1a1a;
+  overflow: hidden;
 }
 
 /* Phone frame: rounded rectangle with subtle border */
@@ -24,7 +26,7 @@
     inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 
-/* Screen: the actual app surface. transform creates containing block for fixed children. */
+/* Screen: fills device frame; fixed AppBar/BottomNav are positioned relative to this. */
 .device-screen {
   width: 100%;
   height: 100%;
@@ -49,11 +51,11 @@
   overflow: hidden;
 }
 
-/* iOS-style home indicator at bottom */
+/* iOS-style home indicator at bottom; height matches --home-indicator-clearance (index.css) */
 .device-home-indicator {
   flex-shrink: 0;
-  height: calc(20px + env(safe-area-inset-bottom, 0px));
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  height: var(--home-indicator-clearance);
+  padding-bottom: var(--safe-bottom);
   display: flex;
   align-items: flex-end;
   justify-content: center;

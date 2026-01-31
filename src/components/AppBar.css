@@ -1,6 +1,10 @@
 .app-bar {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  min-height: var(--app-bar-height);
   z-index: 100;
   background: var(--app-bar-bg);
   color: var(--text-primary);
