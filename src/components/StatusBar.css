@@ -1,0 +1,73 @@
+/* System status bar – iOS/Android style */
+.status-bar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--status-bar-height, 44px);
+  padding-left: max(1.25rem, env(safe-area-inset-left));
+  padding-right: max(1.25rem, env(safe-area-inset-right));
+  padding-top: env(safe-area-inset-top, 0);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased;
+}
+
+.status-bar--light {
+  color: #000;
+}
+
+.status-bar--dark {
+  color: #fff;
+}
+
+.status-bar-time {
+  flex-shrink: 0;
+}
+
+.status-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.status-bar-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-bar-icon svg {
+  display: block;
+}
+
+.status-bar-battery-body {
+  position: relative;
+  width: 26px;
+  height: 12px;
+  border: 1.5px solid currentColor;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.status-bar-battery-body::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  right: -4px;
+  width: 2px;
+  height: 4px;
+  background: currentColor;
+  border-radius: 0 1px 1px 0;
+}
+
+.status-bar-battery-level {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  bottom: 1px;
+  background: currentColor;
+  border-radius: 1px;
+  min-width: 4px;
+}

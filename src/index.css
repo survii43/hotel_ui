@@ -19,6 +19,7 @@
   --radius-lg: 12px;
   --radius-xl: 16px;
   --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --status-bar-height: 44px;
   --error: #dc2626;
   /* Order status badge/icon palette – shared by OrderTracking & OrderStatusPopup */
   --status-pending-bg: #fef3c7;
@@ -71,12 +72,14 @@ html {
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
   line-height: 1.5;
   color: var(--text-primary);
-  background: var(--bg);
+  background: #1a1a1a;
   min-height: 100vh;
   min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
@@ -84,6 +87,11 @@ body {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+}
+
+/* Status bar lives inside device frame; content below it */
+.device-content .app-bar {
+  padding-top: 0;
 }
 
 /* Main content area – space for fixed bottom nav */
