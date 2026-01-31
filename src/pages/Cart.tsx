@@ -9,6 +9,7 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import { useApp } from '../hooks/useApp';
 import { useCreateOrderMutation } from '../hooks/queries';
+import { isUuid } from '../utils/validation';
 import type { CartItem as CartItemType, CreateOrderRequest } from '../api/types';
 import AppBar from '../components/AppBar';
 import BottomNav from '../components/BottomNav';
@@ -76,6 +77,10 @@ export default function Cart() {
 
   async function handleConfirmOrder() {
     if (!outletId || cart.length === 0) return;
+    if (!isUuid(outletId)) {
+      setError(t('scan.noOutlet'));
+      return;
+    }
     setError(null);
     const orderTypeApi: 'dine_in' | 'takeaway' = orderType === 'dine_in' ? 'dine_in' : 'takeaway';
     const sendContact = orderTypeApi !== 'dine_in';

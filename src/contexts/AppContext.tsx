@@ -6,6 +6,7 @@ import type {
   OrderStatus,
   GetOrderResponse,
 } from '../api/types';
+import { isUuid } from '../utils/validation';
 
 interface AppState {
   qrContext: QRContextResponse | null;
@@ -55,9 +56,13 @@ function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case 'SET_QR': {
         const qr = action.payload.qrContext;
-        const rawOutlet = action.payload.outlet as OutletInfo | undefined;
-        // Use outlet.id from response (full UUID); do not use qrContext.outletId which may be a short code
-        const outletId = rawOutlet?.id ?? qr?.outletId ?? null;
+        const rawOutlet = action.payload.outlet as OutletInfo & { uuid?: string } | undefined;
+        // Orders API requires full UUID in outlet_id. Use only result.outlet.id or result.outlet.uuid (full UUID).
+        // Do not use qrContext.outletId (e.g. 92DB0532) – it is not a valid UUID.
+        const outletId =
+          (rawOutlet?.id && isUuid(rawOutlet.id) ? rawOutlet.id : null) ??
+          (rawOutlet?.uuid && isUuid(rawOutlet.uuid) ? rawOutlet.uuid : null) ??
+          null;
         const outlet = outletId
           ? {
               id: outletId,
