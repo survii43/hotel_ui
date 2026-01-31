@@ -5,7 +5,7 @@ import { useApp } from '../hooks/useApp';
 import { useOrder } from '../hooks/queries';
 import { getOrder } from '../api/client';
 import AppBar from '../components/AppBar';
-import BottomNav from '../components/BottomNav';
+import Footer from '../components/Footer';
 import './History.css';
 
 export default function History() {
@@ -108,7 +108,7 @@ export default function History() {
           )}
         </div>
       </main>
-      <BottomNav />
+      <Footer />
     </>
   );
 }

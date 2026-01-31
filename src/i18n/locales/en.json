@@ -26,12 +26,15 @@
     "notesForItemPlaceholder": "e.g. no ice, less sugar",
     "selectVariant": "Please select an option.",
     "orderingFrom": "Ordering from",
-    "table": "Table"
+    "table": "Table",
+    "inCart": "In cart ({{count}})"
   },
   "cart": {
     "title": "Your cart",
     "empty": "Your cart is empty",
     "addedToCart": "Added to cart",
+    "viewItemsAdded_one": "1 item added – View cart",
+    "viewItemsAdded_other": "{{count}} items added – View cart",
     "noSession": "Table session required to place an order.",
     "noSessionWithItems": "Scan the table code to place your order.",
     "scanTableCode": "Scan table code",

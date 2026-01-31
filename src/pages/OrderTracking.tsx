@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useApp } from '../hooks/useApp';
 import { useOrder } from '../hooks/queries';
 import AppBar from '../components/AppBar';
-import BottomNav from '../components/BottomNav';
+import Footer from '../components/Footer';
 import './OrderTracking.css';
 
 const REFETCH_INTERVAL_MS = 20_000; // 20s – live-ish order status
@@ -46,7 +46,7 @@ export default function OrderTracking() {
         <main className="main-content">
           <div className="container order-loading">{t('common.loading')}</div>
         </main>
-        <BottomNav />
+        <Footer />
       </>
     );
   }
@@ -65,7 +65,7 @@ export default function OrderTracking() {
             </button>
           </div>
         </main>
-        <BottomNav />
+        <Footer />
       </>
     );
   }
@@ -118,7 +118,7 @@ export default function OrderTracking() {
           </section>
         </div>
       </main>
-      <BottomNav />
+      <Footer />
     </>
   );
 }

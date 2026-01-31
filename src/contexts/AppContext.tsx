@@ -57,12 +57,10 @@ function reducer(state: AppState, action: Action): AppState {
     case 'SET_QR': {
         const qr = action.payload.qrContext;
         const rawOutlet = action.payload.outlet as OutletInfo & { uuid?: string } | undefined;
-        // Prefer full UUID from result.outlet for orders API; fall back to result.outlet.id or qrContext.outletId so Cart/Menu UI always have an outlet
+        // Only store a valid UUID in outlet.id so Cart place-order and API calls succeed; do not fall back to short codes
         const outletId =
           (rawOutlet?.id && isUuid(rawOutlet.id) ? rawOutlet.id : null) ??
           (rawOutlet?.uuid && isUuid(rawOutlet.uuid) ? rawOutlet.uuid : null) ??
-          rawOutlet?.id ??
-          qr?.outletId ??
           null;
         const outlet = outletId
           ? {

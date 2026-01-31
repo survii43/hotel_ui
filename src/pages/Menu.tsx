@@ -3,19 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Plus, ChevronDown } from 'lucide-react';
 import { useApp } from '../hooks/useApp';
+import { useToastOptional } from '../hooks/useToast';
 import { useActiveMenu } from '../hooks/queries';
 import { normalizeScanMenu } from '../utils/normalizeScanMenu';
 import type { MenuCategory, MenuItemSummary } from '../api/types';
 import type { CartItem } from '../api/types';
 import AppBar from '../components/AppBar';
-import BottomNav from '../components/BottomNav';
+import Footer from '../components/Footer';
 import AddToCartModal from '../components/AddToCartModal';
 import './Menu.css';
 
 export default function Menu() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { state, dispatch, addNotification } = useApp();
+  const { state, dispatch } = useApp();
+  const toast = useToastOptional();
   const [modalItem, setModalItem] = useState<MenuItemSummary | null>(null);
   const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
@@ -108,8 +110,16 @@ export default function Menu() {
 
   function addToCart(cartItem: CartItem) {
     dispatch({ type: 'ADD_TO_CART', payload: cartItem });
-    addNotification(t('cart.addedToCart'));
+    toast?.showToast(t('cart.addedToCart'));
   }
+
+  const cartQtyByItemId = useMemo(() => {
+    const map: Record<string, number> = {};
+    state.cart.forEach((i) => {
+      map[i.menu_item_id] = (map[i.menu_item_id] ?? 0) + i.quantity;
+    });
+    return map;
+  }, [state.cart]);
 
   function openAddToCart(item: MenuItemSummary) {
     setModalItem(item);
@@ -127,7 +137,7 @@ export default function Menu() {
             </button>
           </div>
         </main>
-        <BottomNav />
+        <Footer />
       </>
     );
   }
@@ -139,7 +149,7 @@ export default function Menu() {
         <main className="main-content">
           <div className="container menu-loading">{t('common.loading')}</div>
         </main>
-        <BottomNav />
+        <Footer />
       </>
     );
   }
@@ -168,7 +178,7 @@ export default function Menu() {
             </div>
           </div>
         </main>
-        <BottomNav />
+        <Footer />
       </>
     );
   }
@@ -248,10 +258,10 @@ export default function Menu() {
                               type="button"
                               className="menu-item-add-btn"
                               onClick={() => openAddToCart(item)}
-                              aria-label={t('menu.addToCart')}
+                              aria-label={cartQtyByItemId[item.id] ? t('menu.inCart', { count: cartQtyByItemId[item.id] }) : t('menu.addToCart')}
                             >
                               <Plus size={18} strokeWidth={2.5} />
-                              {t('menu.addToCart')}
+                              {cartQtyByItemId[item.id] ? t('menu.inCart', { count: cartQtyByItemId[item.id] }) : t('menu.addToCart')}
                             </button>
                           </div>
                         </div>
@@ -280,10 +290,10 @@ export default function Menu() {
                           type="button"
                           className="menu-item-add-btn"
                           onClick={() => openAddToCart(item)}
-                          aria-label={t('menu.addToCart')}
+                          aria-label={cartQtyByItemId[item.id] ? t('menu.inCart', { count: cartQtyByItemId[item.id] }) : t('menu.addToCart')}
                         >
                           <Plus size={18} strokeWidth={2.5} />
-                          {t('menu.addToCart')}
+                          {cartQtyByItemId[item.id] ? t('menu.inCart', { count: cartQtyByItemId[item.id] }) : t('menu.addToCart')}
                         </button>
                       </div>
                     </div>
@@ -300,7 +310,7 @@ export default function Menu() {
           onClose={() => setModalItem(null)}
         />
       )}
-      <BottomNav />
+      <Footer />
     </>
   );
 }

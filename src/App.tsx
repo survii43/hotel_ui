@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { MuiThemeProviderWrapper } from './theme/MuiThemeProvider';
 import { AppProvider } from './contexts/AppContext';
+import { ToastProvider } from './contexts/ToastContext';
 import DeviceFrame from './components/DeviceFrame';
 import OrderStatusPopup from './components/OrderStatusPopup';
 import Scan from './pages/Scan';
@@ -16,6 +17,7 @@ function App() {
     <ThemeProvider>
       <MuiThemeProviderWrapper>
         <AppProvider>
+          <ToastProvider>
           <BrowserRouter>
             <div className="app-layout">
             <DeviceFrame>
@@ -32,6 +34,7 @@ function App() {
           </DeviceFrame>
             </div>
         </BrowserRouter>
+          </ToastProvider>
       </AppProvider>
       </MuiThemeProviderWrapper>
     </ThemeProvider>

@@ -24,6 +24,8 @@
   --bottom-nav-height: 56px;
   --home-indicator-clearance: calc(20px + var(--safe-bottom));
   --bottom-bar-total: calc(var(--bottom-nav-height) + var(--home-indicator-clearance));
+  --cart-summary-bar-height: 48px;
+  --footer-extra: 0px;
   --error: #dc2626;
   /* Order status badge/icon palette – shared by OrderTracking & OrderStatusPopup */
   --status-pending-bg: #fef3c7;
@@ -137,7 +139,7 @@ body {
   -webkit-overflow-scrolling: touch;
   touch-action: pan-y;
   padding-top: var(--app-bar-height);
-  padding-bottom: var(--bottom-bar-total);
+  padding-bottom: calc(var(--bottom-bar-total) + var(--footer-extra));
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;

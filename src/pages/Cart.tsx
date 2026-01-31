@@ -12,7 +12,7 @@ import { useCreateOrderMutation } from '../hooks/queries';
 import { isUuid } from '../utils/validation';
 import type { CartItem as CartItemType, CreateOrderRequest } from '../api/types';
 import AppBar from '../components/AppBar';
-import BottomNav from '../components/BottomNav';
+import Footer from '../components/Footer';
 import './Cart.css';
 
 export default function Cart() {
@@ -79,6 +79,7 @@ export default function Cart() {
     if (!outletId || cart.length === 0) return;
     if (!isUuid(outletId)) {
       setError(t('scan.noOutlet'));
+      setShowConfirm(false);
       return;
     }
     setError(null);
@@ -149,7 +150,7 @@ export default function Cart() {
             </button>
           </div>
         </main>
-        <BottomNav />
+        <Footer />
       </>
     );
   }
@@ -166,7 +167,7 @@ export default function Cart() {
             </button>
           </div>
         </main>
-        <BottomNav />
+        <Footer />
       </>
     );
   }
@@ -324,7 +325,7 @@ export default function Cart() {
           </Dialog>
         </div>
       </main>
-      <BottomNav />
+      <Footer />
     </>
   );
 }
