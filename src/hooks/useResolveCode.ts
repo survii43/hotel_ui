@@ -1,6 +1,6 @@
 import { useEffect, useRef, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useApp } from '../contexts/AppContext';
+import { useApp } from './useApp';
 import { scanBarcode } from '../api/client';
 import { getCachedContext, setCachedContext } from '../utils/scanCache';
 

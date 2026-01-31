@@ -1,11 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useReducer,
-  useCallback,
-  useMemo,
-  type ReactNode,
-} from 'react';
+import { createContext, useReducer, useCallback, useMemo, type ReactNode } from 'react';
 import type {
   QRContextResponse,
   OutletInfo,
@@ -151,7 +144,9 @@ function reducer(state: AppState, action: Action): AppState {
   }
 }
 
-const AppContext = createContext<{
+/* Context must be exported here for useApp hook; Fast Refresh warning accepted. */
+// eslint-disable-next-line react-refresh/only-export-components
+export const AppContext = createContext<{
   state: AppState;
   dispatch: React.Dispatch<Action>;
   addNotification: (message: string, orderId?: string) => void;
@@ -195,10 +190,4 @@ export function AppProvider({ children }: { children: ReactNode }) {
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
-}
-
-export function useApp() {
-  const ctx = useContext(AppContext);
-  if (!ctx) throw new Error('useApp must be used within AppProvider');
-  return ctx;
 }

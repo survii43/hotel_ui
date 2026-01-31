@@ -58,7 +58,9 @@ export function useCreateOrderMutation(
   >
 ) {
   const queryClient = useQueryClient();
-  const { onSuccess: _userOnSuccess, ...rest } = options ?? {};
+  const rest = options
+    ? Object.fromEntries(Object.entries(options).filter(([k]) => k !== 'onSuccess'))
+    : {};
   return useMutation({
     mutationFn: createOrder,
     ...rest,

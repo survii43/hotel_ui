@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Plus, ChevronDown } from 'lucide-react';
-import { useApp } from '../contexts/AppContext';
+import { useApp } from '../hooks/useApp';
 import { useActiveMenu } from '../hooks/queries';
 import { normalizeScanMenu } from '../utils/normalizeScanMenu';
 import type { MenuCategory, MenuItemSummary } from '../api/types';
@@ -42,7 +42,12 @@ export default function Menu() {
     return data?.categories?.length
       ? data
       : { categories: data?.categories ?? [], items: data?.items ?? [] };
-  }, [outletId, hasScanMenu, state.qrContext?.menu, activeMenuQuery.data?.data]);
+  }, [outletId, hasScanMenu, state.qrContext, activeMenuQuery.data?.data]);
+
+  const categories = useMemo(() => menu?.categories ?? [], [menu?.categories]);
+  const items = menu?.items ?? [];
+  const hasCategories = categories.length > 0;
+  const list = hasCategories ? categories.flatMap((c) => (c.items ?? [])) : items;
 
   const loading = !!outletId && !hasScanMenu && activeMenuQuery.isLoading;
   const error = !outletId
@@ -51,15 +56,11 @@ export default function Menu() {
       ? null
       : (activeMenuQuery.error instanceof Error ? activeMenuQuery.error.message : activeMenuQuery.error ? t('common.error') : null);
 
-  const categories = menu?.categories ?? [];
-  const items = menu?.items ?? [];
-  const hasCategories = categories.length > 0;
-  const list = hasCategories ? categories.flatMap((c) => (c.items ?? [])) : items;
-
-  // Sync active tab and expanded state when categories load (runs unconditionally; guards inside)
+  /* Sync active tab and expanded state when categories load. */
   useEffect(() => {
     if (!hasCategories) return;
     const ids = categories.map((c) => c.id);
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sync UI state when categories load
     setActiveCategoryId((prev) => (prev && ids.includes(prev) ? prev : ids[0] ?? null));
     setExpandedCategories((prev) => {
       const next = { ...prev };

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useApp } from '../contexts/AppContext';
+import { useApp } from '../hooks/useApp';
 import { useOrder } from '../hooks/queries';
 import AppBar from '../components/AppBar';
 import BottomNav from '../components/BottomNav';

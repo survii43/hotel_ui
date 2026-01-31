@@ -28,10 +28,15 @@ export default function AddToCartModal({ item, currency, onAdd, onClose }: AddTo
   });
   const [specialInstructions, setSpecialInstructions] = useState('');
 
+  const variants = item.variants ?? [];
+  const addons = useMemo(() => item.addons ?? [], [item.addons]);
+
+  /* Sync variant state when item changes; intentional derived state from props. */
   useEffect(() => {
     const vs = item.variants ?? [];
     if (vs.length > 0) {
       const first = vs[0];
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- sync variant from item prop
       setVariantId(first.id);
       setVariantName(first.name);
       setVariantPrice(first.price ?? item.price ?? 0);
@@ -40,10 +45,8 @@ export default function AddToCartModal({ item, currency, onAdd, onClose }: AddTo
       setVariantName(undefined);
       setVariantPrice(undefined);
     }
-  }, [item.id]);
+  }, [item.id, item.price, item.variants]);
 
-  const variants = item.variants ?? [];
-  const addons = item.addons ?? [];
   const basePrice = variantPrice ?? item.price ?? 0;
   const addonList = useMemo(() => {
     return addons
