@@ -47,8 +47,8 @@
     "contactRequired": "Contact (we'll notify you when ready)",
     "addContact": "Add contact for updates",
     "contactForTableOrder": "Used for updates for this table's order only.",
-    "phoneRequired": "Phone required for takeaway/delivery",
-    "nameRequired": "Name required for delivery"
+    "phoneRequired": "Phone required for takeaway",
+    "nameRequired": "Name required"
   },
   "history": {
     "title": "Order history",

@@ -74,7 +74,7 @@ export interface OrderItemRequest {
 
 export interface CreateOrderRequest {
   outlet_id: string;
-  order_type: 'dine_in' | 'takeaway' | 'delivery';
+  order_type: 'dine_in' | 'takeaway';
   items: OrderItemRequest[];
   table_id?: string;
   table_number?: string;

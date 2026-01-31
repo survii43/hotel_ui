@@ -47,8 +47,8 @@
     "contactRequired": "संपर्क (तैयार होने पर सूचित करेंगे)",
     "addContact": "अपडेट के लिए संपर्क जोड़ें",
     "contactForTableOrder": "इस टेबल के ऑर्डर अपडेट के लिए ही उपयोग होगा।",
-    "phoneRequired": "टेकअवे/डिलीवरी के लिए फोन जरूरी",
-    "nameRequired": "डिलीवरी के लिए नाम जरूरी"
+    "phoneRequired": "टेकअवे के लिए फोन जरूरी",
+    "nameRequired": "नाम जरूरी"
   },
   "history": {
     "title": "ऑर्डर इतिहास",

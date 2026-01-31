@@ -20,7 +20,7 @@ interface AppState {
   tableId: string | null;
   tableNumber: string | null;
   sessionId: string | null;
-  orderType: 'dine_in' | 'takeaway' | 'delivery';
+  orderType: 'dine_in' | 'takeaway';
   cart: CartItem[];
   currentOrderId: string | null;
   currentOrder: GetOrderResponse['order'] | null;

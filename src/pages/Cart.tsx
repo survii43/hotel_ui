@@ -56,15 +56,11 @@ export default function Cart() {
     e.preventDefault();
     if (!outletId || cart.length === 0) return;
     setError(null);
-    // Dine-in: no contact required. Takeaway/delivery: require phone (and name for delivery).
-    if (orderType === 'takeaway' || orderType === 'delivery') {
+    // Dine-in: no contact. Takeaway: require phone.
+    if (orderType === 'takeaway') {
       const phone = customerPhone.trim();
       if (!phone) {
         setError(t('cart.phoneRequired'));
-        return;
-      }
-      if (orderType === 'delivery' && !customerName.trim()) {
-        setError(t('cart.nameRequired'));
         return;
       }
     }
@@ -76,8 +72,8 @@ export default function Cart() {
     setError(null);
     setPlacing(true);
     try {
-      const orderTypeApi = orderType === 'dine_in' ? 'dine_in' : orderType === 'takeaway' ? 'takeaway' : 'delivery';
-      // Dine-in: no personal info. Takeaway/delivery: send contact.
+      const orderTypeApi = orderType === 'dine_in' ? 'dine_in' : 'takeaway';
+      // Dine-in: no personal info. Takeaway: send contact.
       const sendContact = orderTypeApi !== 'dine_in';
 
       const res = await createOrder({
@@ -228,12 +224,12 @@ export default function Cart() {
             ))}
           </ul>
           <form className="cart-form" onSubmit={handlePlaceOrderClick}>
-            {/* Dine-in: no personal info. Takeaway/delivery: contact required. */}
+            {/* Dine-in: no personal info. Takeaway: contact required. */}
             {orderType !== 'dine_in' && (
               <fieldset className="cart-contact-section">
                 <legend className="cart-contact-legend">{t('cart.contactRequired')}</legend>
                 <label className="cart-label">
-                  <span>{t('cart.customerName')} {orderType === 'delivery' ? '*' : ''}</span>
+                  <span>{t('cart.customerName')}</span>
                   <input
                     type="text"
                     className="input"
