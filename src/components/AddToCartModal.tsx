@@ -1,9 +1,11 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { X, Plus, Minus } from 'lucide-react';
 import type { MenuItemSummary } from '../api/types';
 import type { CartItem } from '../api/types';
 import './AddToCartModal.css';
+
+const SWIPE_CLOSE_THRESHOLD = 80;
 
 interface AddToCartModalProps {
   item: MenuItemSummary;
@@ -82,9 +84,69 @@ export default function AddToCartModal({ item, currency, onAdd, onClose }: AddTo
   const hasAddons = addons.length > 0;
   const hasVariants = variants.length > 0;
 
+  const [dragY, setDragY] = useState(0);
+  const startY = useRef(0);
+  const currentDragY = useRef(0);
+
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = prev; };
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
+
+  const onHandlePointerDown = useCallback((e: React.PointerEvent) => {
+    startY.current = e.clientY;
+    currentDragY.current = 0;
+    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+  }, []);
+
+  const onHandlePointerMove = useCallback((e: React.PointerEvent) => {
+    if (!e.buttons && e.pointerType !== 'touch') return;
+    const dy = Math.max(0, e.clientY - startY.current);
+    currentDragY.current = dy;
+    setDragY(dy);
+  }, []);
+
+  const onHandlePointerUp = useCallback((e: React.PointerEvent) => {
+    (e.target as HTMLElement).releasePointerCapture?.(e.pointerId);
+    const didSwipe = currentDragY.current >= SWIPE_CLOSE_THRESHOLD;
+    currentDragY.current = 0;
+    if (didSwipe) onClose();
+    else setDragY(0);
+  }, [onClose]);
+
   return (
-    <div className="add-to-cart-overlay" role="dialog" aria-modal="true" aria-labelledby="add-to-cart-title">
-      <div className="add-to-cart-modal">
+    <div
+      className="add-to-cart-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="add-to-cart-title"
+      onClick={onClose}
+    >
+      <div
+        className="add-to-cart-modal"
+        onClick={(e) => e.stopPropagation()}
+        style={{ transform: dragY ? `translateY(${dragY}px)` : undefined }}
+      >
+        <div
+          className="add-to-cart-handle-wrap"
+          onPointerDown={onHandlePointerDown}
+          onPointerMove={onHandlePointerMove}
+          onPointerUp={onHandlePointerUp}
+          onPointerCancel={() => setDragY(0)}
+          role="presentation"
+          aria-hidden
+        >
+          <div className="add-to-cart-handle" />
+        </div>
         <div className="add-to-cart-header">
           <h2 id="add-to-cart-title" className="add-to-cart-title">{item.name}</h2>
           <button type="button" className="add-to-cart-close" onClick={onClose} aria-label={t('common.cancel')}>

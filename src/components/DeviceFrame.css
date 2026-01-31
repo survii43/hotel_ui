@@ -40,13 +40,13 @@
   position: relative;
 }
 
+/* Content area: no scroll here; only inner .main-content scrolls */
 .device-content {
   flex: 1;
   display: flex;
   flex-direction: column;
   min-height: 0;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
 }
 
 /* iOS-style home indicator at bottom */

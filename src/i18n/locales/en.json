@@ -43,9 +43,10 @@
     "customerPhone": "Phone",
     "customerEmail": "Email (optional)",
     "specialInstructions": "Special instructions",
-    "contactOptional": "Contact (optional – for order updates)",
+    "contactOptional": "Contact (optional – for this table's order updates)",
     "contactRequired": "Contact (we'll notify you when ready)",
     "addContact": "Add contact for updates",
+    "contactForTableOrder": "Used for updates for this table's order only.",
     "phoneRequired": "Phone required for takeaway/delivery",
     "nameRequired": "Name required for delivery"
   },

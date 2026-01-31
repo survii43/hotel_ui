@@ -77,6 +77,9 @@ export default function Cart() {
     setPlacing(true);
     try {
       const orderTypeApi = orderType === 'dine_in' ? 'dine_in' : orderType === 'takeaway' ? 'takeaway' : 'delivery';
+      // Dine-in: no personal info. Takeaway/delivery: send contact.
+      const sendContact = orderTypeApi !== 'dine_in';
+
       const res = await createOrder({
         outlet_id: outletId,
         order_type: orderTypeApi,
@@ -91,9 +94,11 @@ export default function Cart() {
         table_number: tableNumber,
         session_id: sessionId,
         qr_context: tableId || tableNumber ? { tableId, tableNumber } : undefined,
-        customer_name: customerName.trim() || undefined,
-        customer_phone: customerPhone.trim() || undefined,
-        customer_email: customerEmail.trim() || undefined,
+        ...(sendContact && {
+          customer_name: customerName.trim() || undefined,
+          customer_phone: customerPhone.trim() || undefined,
+          customer_email: customerEmail.trim() || undefined,
+        }),
         special_instructions: specialInstructions.trim() || undefined,
       });
       dispatch({ type: 'CLEAR_CART' });
@@ -223,44 +228,42 @@ export default function Cart() {
             ))}
           </ul>
           <form className="cart-form" onSubmit={handlePlaceOrderClick}>
-            {/* Dine-in: contact optional (table/session identifies order). Takeaway/delivery: contact required. */}
-            <fieldset className="cart-contact-section">
-              <legend className="cart-contact-legend">
-                {orderType === 'dine_in'
-                  ? t('cart.contactOptional')
-                  : t('cart.contactRequired')}
-              </legend>
-              <label className="cart-label">
-                <span>{t('cart.customerName')} {orderType === 'delivery' ? '*' : ''}</span>
-                <input
-                  type="text"
-                  className="input"
-                  value={customerName}
-                  onChange={(e) => setCustomerName(e.target.value)}
-                  placeholder={t('cart.customerName')}
-                />
-              </label>
-              <label className="cart-label">
-                <span>{t('cart.customerPhone')} {(orderType === 'takeaway' || orderType === 'delivery') ? '*' : ''}</span>
-                <input
-                  type="tel"
-                  className="input"
-                  value={customerPhone}
-                  onChange={(e) => setCustomerPhone(e.target.value)}
-                  placeholder={t('cart.customerPhone')}
-                />
-              </label>
-              <label className="cart-label">
-                <span>{t('cart.customerEmail')}</span>
-                <input
-                  type="email"
-                  className="input"
-                  value={customerEmail}
-                  onChange={(e) => setCustomerEmail(e.target.value)}
-                  placeholder={t('cart.customerEmail')}
-                />
-              </label>
-            </fieldset>
+            {/* Dine-in: no personal info. Takeaway/delivery: contact required. */}
+            {orderType !== 'dine_in' && (
+              <fieldset className="cart-contact-section">
+                <legend className="cart-contact-legend">{t('cart.contactRequired')}</legend>
+                <label className="cart-label">
+                  <span>{t('cart.customerName')} {orderType === 'delivery' ? '*' : ''}</span>
+                  <input
+                    type="text"
+                    className="input"
+                    value={customerName}
+                    onChange={(e) => setCustomerName(e.target.value)}
+                    placeholder={t('cart.customerName')}
+                  />
+                </label>
+                <label className="cart-label">
+                  <span>{t('cart.customerPhone')} *</span>
+                  <input
+                    type="tel"
+                    className="input"
+                    value={customerPhone}
+                    onChange={(e) => setCustomerPhone(e.target.value)}
+                    placeholder={t('cart.customerPhone')}
+                  />
+                </label>
+                <label className="cart-label">
+                  <span>{t('cart.customerEmail')}</span>
+                  <input
+                    type="email"
+                    className="input"
+                    value={customerEmail}
+                    onChange={(e) => setCustomerEmail(e.target.value)}
+                    placeholder={t('cart.customerEmail')}
+                  />
+                </label>
+              </fieldset>
+            )}
             <label className="cart-label">
               <span>{t('cart.specialInstructions')}</span>
               <textarea

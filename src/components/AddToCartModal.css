@@ -1,3 +1,4 @@
+/* Bottom sheet: device-style with safe area + home indicator clearance */
 .add-to-cart-overlay {
   position: fixed;
   inset: 0;
@@ -6,20 +7,25 @@
   align-items: flex-end;
   justify-content: center;
   padding: 0;
-  background: rgba(0, 0, 0, 0.5);
-  animation: overlay-fade 0.2s ease;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 28px);
+  background: rgba(0, 0, 0, 0.45);
+  animation: overlay-fade 0.22s ease-out;
+  cursor: pointer;
 }
 
 .add-to-cart-modal {
   width: 100%;
   max-width: 480px;
-  max-height: 90vh;
+  max-height: min(90vh, calc(100vh - env(safe-area-inset-bottom, 0px) - 36px));
   display: flex;
   flex-direction: column;
   background: var(--surface);
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-  box-shadow: 0 -4px 24px var(--shadow);
-  animation: addToCartSlideUp 0.25s ease;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.2);
+  animation: addToCartSlideUp 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+  cursor: default;
+  transition: transform 0.15s ease-out;
+  -webkit-overflow-scrolling: touch;
 }
 
 @keyframes addToCartSlideUp {
@@ -33,11 +39,39 @@
   }
 }
 
+/* Drag handle – iOS/Android style pill */
+.add-to-cart-handle-wrap {
+  flex-shrink: 0;
+  padding: 10px 0 6px;
+  cursor: grab;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.add-to-cart-handle-wrap:active {
+  cursor: grabbing;
+}
+
+.add-to-cart-handle {
+  width: 36px;
+  height: 5px;
+  margin: 0 auto;
+  background: var(--text-muted);
+  opacity: 0.4;
+  border-radius: 100px;
+}
+
+[data-theme="dark"] .add-to-cart-handle {
+  opacity: 0.5;
+}
+
 .add-to-cart-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.25rem;
+  padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
@@ -73,9 +107,13 @@
 
 .add-to-cart-body {
   padding: 1.25rem;
+  padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
   overflow-y: auto;
+  overflow-x: hidden;
   flex: 1;
   min-height: 0;
+  -webkit-overflow-scrolling: touch;
 }
 
 .add-to-cart-desc {
@@ -272,9 +310,12 @@
   display: flex;
   gap: 0.75rem;
   padding: 1rem 1.25rem;
+  padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
   border-top: 1px solid var(--border);
   flex-shrink: 0;
   padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  background: var(--surface);
 }
 
 .add-to-cart-footer .btn {
@@ -289,6 +330,7 @@
   .add-to-cart-overlay {
     align-items: center;
     padding: 1rem;
+    padding-bottom: 1rem;
   }
 
   .add-to-cart-modal {
