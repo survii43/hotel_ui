@@ -42,7 +42,12 @@
     "customerName": "Name",
     "customerPhone": "Phone",
     "customerEmail": "Email (optional)",
-    "specialInstructions": "Special instructions"
+    "specialInstructions": "Special instructions",
+    "contactOptional": "Contact (optional – for order updates)",
+    "contactRequired": "Contact (we'll notify you when ready)",
+    "addContact": "Add contact for updates",
+    "phoneRequired": "Phone required for takeaway/delivery",
+    "nameRequired": "Name required for delivery"
   },
   "history": {
     "title": "Order history",

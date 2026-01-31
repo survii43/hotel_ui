@@ -24,7 +24,7 @@
 .history-error {
   margin: 0;
   font-size: 0.875rem;
-  color: #dc2626;
+  color: var(--error);
 }
 
 .history-current {
@@ -53,7 +53,7 @@
 }
 
 .history-status-value.status-cancelled {
-  color: #dc2626;
+  color: var(--error);
 }
 
 .history-total strong {

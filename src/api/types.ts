@@ -43,6 +43,8 @@ export interface MenuItemSummary {
   name: string;
   description?: string | null;
   price?: number;
+  imageUrl?: string | null;
+  isVeg?: boolean;
   variants?: { id: string; name: string; price?: number }[];
   addons?: { id: string; name: string; price?: number }[];
 }

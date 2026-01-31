@@ -7,7 +7,6 @@ import Menu from './pages/Menu';
 import Cart from './pages/Cart';
 import History from './pages/History';
 import OrderTracking from './pages/OrderTracking';
-import './App.css';
 
 function App() {
   return (

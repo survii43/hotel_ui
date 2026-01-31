@@ -56,6 +56,18 @@ export default function Cart() {
     e.preventDefault();
     if (!outletId || cart.length === 0) return;
     setError(null);
+    // Dine-in: no contact required. Takeaway/delivery: require phone (and name for delivery).
+    if (orderType === 'takeaway' || orderType === 'delivery') {
+      const phone = customerPhone.trim();
+      if (!phone) {
+        setError(t('cart.phoneRequired'));
+        return;
+      }
+      if (orderType === 'delivery' && !customerName.trim()) {
+        setError(t('cart.nameRequired'));
+        return;
+      }
+    }
     setShowConfirm(true);
   }
 
@@ -211,36 +223,44 @@ export default function Cart() {
             ))}
           </ul>
           <form className="cart-form" onSubmit={handlePlaceOrderClick}>
-            <label className="cart-label">
-              <span>{t('cart.customerName')}</span>
-              <input
-                type="text"
-                className="input"
-                value={customerName}
-                onChange={(e) => setCustomerName(e.target.value)}
-                placeholder={t('cart.customerName')}
-              />
-            </label>
-            <label className="cart-label">
-              <span>{t('cart.customerPhone')}</span>
-              <input
-                type="tel"
-                className="input"
-                value={customerPhone}
-                onChange={(e) => setCustomerPhone(e.target.value)}
-                placeholder={t('cart.customerPhone')}
-              />
-            </label>
-            <label className="cart-label">
-              <span>{t('cart.customerEmail')}</span>
-              <input
-                type="email"
-                className="input"
-                value={customerEmail}
-                onChange={(e) => setCustomerEmail(e.target.value)}
-                placeholder={t('cart.customerEmail')}
-              />
-            </label>
+            {/* Dine-in: contact optional (table/session identifies order). Takeaway/delivery: contact required. */}
+            <fieldset className="cart-contact-section">
+              <legend className="cart-contact-legend">
+                {orderType === 'dine_in'
+                  ? t('cart.contactOptional')
+                  : t('cart.contactRequired')}
+              </legend>
+              <label className="cart-label">
+                <span>{t('cart.customerName')} {orderType === 'delivery' ? '*' : ''}</span>
+                <input
+                  type="text"
+                  className="input"
+                  value={customerName}
+                  onChange={(e) => setCustomerName(e.target.value)}
+                  placeholder={t('cart.customerName')}
+                />
+              </label>
+              <label className="cart-label">
+                <span>{t('cart.customerPhone')} {(orderType === 'takeaway' || orderType === 'delivery') ? '*' : ''}</span>
+                <input
+                  type="tel"
+                  className="input"
+                  value={customerPhone}
+                  onChange={(e) => setCustomerPhone(e.target.value)}
+                  placeholder={t('cart.customerPhone')}
+                />
+              </label>
+              <label className="cart-label">
+                <span>{t('cart.customerEmail')}</span>
+                <input
+                  type="email"
+                  className="input"
+                  value={customerEmail}
+                  onChange={(e) => setCustomerEmail(e.target.value)}
+                  placeholder={t('cart.customerEmail')}
+                />
+              </label>
+            </fieldset>
             <label className="cart-label">
               <span>{t('cart.specialInstructions')}</span>
               <textarea

@@ -7,12 +7,7 @@
   justify-content: center;
   padding: 1rem;
   background: rgba(0, 0, 0, 0.5);
-  animation: fadeIn 0.2s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  animation: overlay-fade 0.2s ease;
 }
 
 .order-status-popup {
@@ -68,52 +63,26 @@
 }
 
 .order-status-icon.status-pending {
-  background: #fef3c7;
-  color: #b45309;
-}
-
-[data-theme="dark"] .order-status-icon.status-pending {
-  background: rgba(245, 158, 11, 0.2);
+  background: var(--status-pending-bg);
+  color: var(--status-pending-fg);
 }
 
 .order-status-icon.status-confirmed,
 .order-status-icon.status-preparing {
-  background: #dbeafe;
-  color: #1d4ed8;
-}
-
-[data-theme="dark"] .order-status-icon.status-confirmed,
-[data-theme="dark"] .order-status-icon.status-preparing {
-  background: rgba(59, 130, 246, 0.2);
+  background: var(--status-confirmed-bg);
+  color: var(--status-confirmed-fg);
 }
 
 .order-status-icon.status-ready,
-.order-status-icon.status-served {
-  background: #d1fae5;
-  color: #047857;
-}
-
-[data-theme="dark"] .order-status-icon.status-ready,
-[data-theme="dark"] .order-status-icon.status-served {
-  background: rgba(16, 185, 129, 0.2);
-}
-
+.order-status-icon.status-served,
 .order-status-icon.status-completed {
-  background: #d1fae5;
-  color: #065f46;
-}
-
-[data-theme="dark"] .order-status-icon.status-completed {
-  background: rgba(16, 185, 129, 0.25);
+  background: var(--status-ready-bg);
+  color: var(--status-ready-fg);
 }
 
 .order-status-icon.status-cancelled {
-  background: #fee2e2;
-  color: #b91c1c;
-}
-
-[data-theme="dark"] .order-status-icon.status-cancelled {
-  background: rgba(239, 68, 68, 0.2);
+  background: var(--status-cancelled-bg);
+  color: var(--status-cancelled-fg);
 }
 
 .order-status-title {

@@ -19,6 +19,16 @@
   --radius-lg: 12px;
   --radius-xl: 16px;
   --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --error: #dc2626;
+  /* Order status badge/icon palette – shared by OrderTracking & OrderStatusPopup */
+  --status-pending-bg: #fef3c7;
+  --status-pending-fg: #b45309;
+  --status-confirmed-bg: #dbeafe;
+  --status-confirmed-fg: #1d4ed8;
+  --status-ready-bg: #d1fae5;
+  --status-ready-fg: #047857;
+  --status-cancelled-bg: #fee2e2;
+  --status-cancelled-fg: #b91c1c;
 }
 
 [data-theme="dark"] {
@@ -35,6 +45,17 @@
   --shadow: rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.4);
   --app-bar-bg: #1e293b;
+  --error: #f87171;
+  --status-pending-bg: rgba(245, 158, 11, 0.2);
+  --status-confirmed-bg: rgba(59, 130, 246, 0.2);
+  --status-ready-bg: rgba(16, 185, 129, 0.2);
+  --status-cancelled-bg: rgba(239, 68, 68, 0.2);
+}
+
+/* Shared overlay fade – use in modals/overlays */
+@keyframes overlay-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 *,

@@ -60,19 +60,28 @@ const initialState: AppState = {
 
 function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
-    case 'SET_QR':
-      return {
-        ...state,
-        qrContext: action.payload,
-        outlet: action.payload.outlet ?? state.outlet,
-        tableId: action.payload.qrContext?.tableId ?? null,
-        tableNumber: action.payload.qrContext?.tableNumber ?? action.payload.table?.table_number ?? null,
-        sessionId: action.payload.qrContext?.sessionId ?? null,
-        orderType:
-          action.payload.qrContext?.scanMode === 'takeaway'
-            ? 'takeaway'
-            : 'dine_in',
-      };
+    case 'SET_QR': {
+        const qr = action.payload.qrContext;
+        const rawOutlet = action.payload.outlet as { name?: string; contact?: { phone?: string }; address?: { line1?: string; city?: string } } | undefined;
+        const outlet = qr?.outletId
+          ? {
+              id: qr.outletId,
+              name: rawOutlet?.name ?? 'Outlet',
+              phone: rawOutlet?.contact?.phone,
+              address: rawOutlet?.address?.line1 ?? rawOutlet?.address?.city,
+            }
+          : null;
+        return {
+          ...state,
+          qrContext: action.payload,
+          outlet: outlet ?? state.outlet,
+          tableId: qr?.tableId ?? action.payload.table?.id ?? null,
+          tableNumber: qr?.tableNumber ?? action.payload.table?.table_number ?? null,
+          sessionId: qr?.sessionId ?? null,
+          orderType:
+            qr?.scanMode === 'takeaway' ? 'takeaway' : 'dine_in',
+        };
+      }
     case 'SET_OUTLET':
       return { ...state, outlet: action.payload };
     case 'SET_ORDER':
